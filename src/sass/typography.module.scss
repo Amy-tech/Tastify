@@ -1,0 +1,54 @@
+// BODY TYPOGRAPHY
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #000;
+}
+
+// HEADING TYPOGRAPHY
+.primary {
+  backface-visibility: hidden;
+  margin-bottom: 1rem;
+
+  &__headingmain {
+    font-size: 6rem;
+    display: block;
+    letter-spacing: 0.5rem;
+
+    // @include respond(phone) {
+    //   font-size: 5rem;
+    //   letter-spacing: 1rem;
+    // }
+  }
+  &__headingsub {
+    display: block;
+    font-size: 2rem;
+    letter-spacing: 0.5rem;
+
+    // @include respond(phone) {
+    //   letter-spacing: 0.5rem;
+    // }
+  }
+}
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  display: inline-block;
+
+  //   @include respond(tab-port) {
+  //     font-size: 3rem;
+  //   }
+  //   @include respond(phone) {
+  //     font-size: 2.5rem;
+  //   }
+}
+
+//PARAGRAPH TYPOGRAPHY
+.paragraph {
+  font-size: 1.6rem;
+  &:not(:last-child) {
+    margin-bottom: 3rem;
+  }
+}

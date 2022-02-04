@@ -1,0 +1,33 @@
+.Signup {
+  background: whitesmoke;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  align-items: flex-end;
+  width: 100%;
+  .Signup__Form {
+    width: 100%;
+    input {
+      margin-bottom: 10px;
+      outline: none;
+      display: block;
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      font-family: inherit;
+    }
+    p {
+      font-size: 1rem;
+      text-align: center;
+      margin: 10px;
+    }
+  }
+}
+
+.Signup__Button {
+  display: block;
+  margin: 2rem auto;
+  font-family: inherit;
+  padding: 1rem 0.5rem;
+  width: 50%;
+}

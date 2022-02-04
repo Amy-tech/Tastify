@@ -1,0 +1,41 @@
+.Authentication {
+  position: absolute;
+  background-color: whitesmoke;
+  top: 50%;
+  left: 40%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 400px;
+  min-height: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 0px 1px 1px #ccc;
+  .Authentication__Container {
+    width: 100%;
+    min-height: 600px;
+    position: relative;
+
+    display: flex;
+  }
+}
+
+.Authentication__Backdrop {
+  position: absolute;
+  width: 550px;
+  display: flex;
+  align-items: center;
+  top: -100px;
+  border-radius: 20% 38% 900% 20%;
+  height: 280px;
+  background-color: #f5b202;
+  .Header {
+    color: white;
+
+    padding: 1rem;
+    h3 {
+      font-size: 3rem;
+    }
+    p {
+      font-size: 1rem;
+    }
+  }
+}
