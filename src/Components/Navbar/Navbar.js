@@ -13,15 +13,14 @@ const Navbar = (props) => {
         <img src={logo} alt="Tastify logo" />
         <h1>Tastify</h1>
 
-        {/* UNCOMMENTED FOR TESTING */}
-        <ul className={classes.Navbar__ListItems}>
+        {/* <ul className={classes.Navbar__ListItems}>
           <li>
             <Link to="/">Home Page</Link>
           </li>
           <li>
             <Link to="/authenticate">Authentication</Link>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );
