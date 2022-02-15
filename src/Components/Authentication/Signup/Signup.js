@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Signup.module.scss";
 
-import button from "../../../sass/button.module.scss";
+import button from "../../Global Components/Buttons/Button.module.scss";
 
 const Signup = (props) => {
   return (

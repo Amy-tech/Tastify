@@ -5,12 +5,10 @@ import plateOne from "../../images/plate-1-compressed.png";
 import plateTwo from "../../images/plate-2-compressed.png";
 import plateThree from "../../images/plate-3-compressed.png";
 
-import classes from "./home-component.module.scss";
-import typography from "../../sass/typography.module.scss";
-import button from "../../sass/button.module.scss";
+import classes from "./HomeComponent.module.scss";
+import typography from "../Global Components/Global Sass/Typography.module.scss";
+import PrimaryBtn from "../Global Components/Buttons/PrimaryBtn.js";
 import AuthenticationPage from "../../Pages/AuthenticationPage/AuthenticationPage";
-
-// import Authentication from "../../Pages/AuthenticationPage.js";
 
 // IMAGE ARRAY
 const ImageSlider = [
@@ -53,28 +51,22 @@ const HomeComponent = () => {
       </div>
 
       {/* CONTENT */}
-      {/* create a  ternary operator that will display content else when the button is clicked to display Auth, working just needs to be tied to signin btn */}
       {!showAuth ? (
         <div className={classes.home__content}>
           {/* --TITLE */}
-          <h2 className={typography.primary__headingmain}>
+          <h2 className={typography.primary__headingLarge}>
             We make <br /> Delicious Food
           </h2>
-
           {/* --DESCRIPTION */}
-          <p className={typography.primary__headingsub}>
+          <p className={typography.primary__headingSmall}>
             post recipes, share them with friends, <br /> find new ones and
             favorite them.
           </p>
-
           {/* --BUTTON */}
-          <div className={classes.home__homeBtn} onClick={toggleSignin}>
-            <a className={`${button.btn} ${button.btn__primary}`} href="#">
-              Sign in
-            </a>
-          </div>
+          <PrimaryBtn onClick={toggleSignin} />
         </div>
       ) : (
+        // AUTHENTICATION PAGE
         <AuthenticationPage open={showAuth} />
       )}
       {/* SLIDE */}
@@ -101,9 +93,7 @@ const HomeComponent = () => {
           })}
         </div>
         {/* SPLASH */}
-        {/* <div> */}
         <div className={classes.splash}></div>
-        {/* </div> */}
       </div>
     </div>
   );

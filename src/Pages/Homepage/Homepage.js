@@ -2,27 +2,15 @@
 import React from "react";
 
 import HomeComponent from "../../Components/Home/HomeComponent.js";
-// import logo from "../../images/logo_leaf.png";
-// import Button from "../../Components/Button.js";
+import Navbar from "../../Components/Navbar/Navbar.js";
 
 const Homepage = () => {
   return (
     <div>
+      <Navbar />
       <HomeComponent />
     </div>
   );
 };
 
 export default Homepage;
-
-// import React from "react";
-
-// const Homepage = (props) => {
-//   return (
-//     <div>
-//       <h1>HOMEPAGE</h1>
-//     </div>
-//   );
-// };
-
-// export default Homepage;

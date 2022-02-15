@@ -1,17 +1,17 @@
 //IMPORTING RELEVANT COMPONENTS
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../Global Components/Logo/Logo.js";
 import classes from "./Navbar.module.scss";
-
-import logo from "../../images/logo_leaf.png";
+import typography from "../Global Components/Global Sass/Typography.module.scss";
 
 const Navbar = (props) => {
   return (
     <div className={classes.Navbar}>
       <div className={classes.Navbar__Container}>
         {/* LOGO */}
-        <img src={logo} alt="Tastify logo" />
-        <h1>Tastify</h1>
+        <Logo />
+        <h1 className={typography.title}>Tastify</h1>
 
         {/* <ul className={classes.Navbar__ListItems}>
           <li>
