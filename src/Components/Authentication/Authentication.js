@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Authentication.module.scss";
 import Signup from "./Signup/Signup";
 
-import typography from "../../sass/typography.module.scss";
+import typography from "../Global Components/Global Sass/Typography.module.scss";
 
 const Authentication = (props) => {
   return (

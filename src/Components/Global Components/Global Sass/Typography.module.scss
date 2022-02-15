@@ -11,7 +11,7 @@ body {
   backface-visibility: hidden;
   margin-bottom: 1rem;
 
-  &__headingmain {
+  &__headingLarge {
     font-size: 6rem;
     display: block;
     letter-spacing: 0.5rem;
@@ -21,7 +21,14 @@ body {
     //   letter-spacing: 1rem;
     // }
   }
-  &__headingsub {
+
+  &__headingMedium {
+    font-size: 4rem;
+    display: block;
+    letter-spacing: 0.5rem;
+  }
+
+  &__headingSmall {
     display: block;
     font-size: 2rem;
     letter-spacing: 0.5rem;
@@ -51,4 +58,12 @@ body {
   &:not(:last-child) {
     margin-bottom: 3rem;
   }
+}
+
+//TITLE POSITIONING
+.title {
+  position: absolute;
+  top: 2rem;
+  left: 10rem;
+  font-size: 3rem;
 }
