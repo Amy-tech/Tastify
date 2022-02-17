@@ -4,9 +4,10 @@
   grid-template-rows: 90vh;
   grid-template-columns: 5vw 45vw 50vw;
 
+  overflow: hidden;
+
   &__vr {
     grid-row: 1 / -1;
-    //background-color: olivedrab;
   }
   &__content {
     grid-row: 1 / -1;
@@ -15,14 +16,12 @@
     display: grid;
     align-content: center;
     justify-items: start;
-    //background-color: paleturquoise;
   }
   &__pictures {
     grid-row: 1 / -1;
     grid-column: 3 / -1;
     display: grid;
     align-items: center;
-    //background-color: palevioletred;
   }
 
   &__homeBtn {
@@ -47,6 +46,8 @@
   left: -10rem;
   width: 80rem;
   height: 70rem;
+  animation: Home-slider-spin infinite 30s linear;
+  z-index: 1;
 
   &__slide {
     position: absolute;
@@ -69,7 +70,15 @@
     height: 100%;
     object-fit: cover;
     flex-shrink: 0;
-    z-index: 1;
+  }
+}
+
+@keyframes Home-slider-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
