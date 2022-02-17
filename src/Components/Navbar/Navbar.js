@@ -12,15 +12,6 @@ const Navbar = (props) => {
         {/* LOGO */}
         <Logo />
         <h1 className={typography.title}>Tastify</h1>
-
-        {/* <ul className={classes.Navbar__ListItems}>
-          <li>
-            <Link to="/">Home Page</Link>
-          </li>
-          <li>
-            <Link to="/authenticate">Authentication</Link>
-          </li>
-        </ul> */}
       </div>
     </div>
   );

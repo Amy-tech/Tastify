@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import Logo from "../Global Components/Logo/Logo.js";
 import classes from "./RecipeHeading.module.scss";
@@ -10,29 +10,39 @@ import { AiOutlineClose } from "react-icons/ai";
 const RecipeHeading = () => {
   const [ingredient, setIngredient] = useState("");
   const [tagList, setTagList] = useState([]);
+  const inputRef = useRef(null);
 
-  // GLOBAL VARIABLE
-  const inputValue = { id: new Date().getTime(), ingredient };
-  // CREATES USER INPUT TAG ON SUBMIT
-  //NOTE : WITH THIS CODE IM ON THE RIGHT TRACK
-  const addTagHandler = (e) => {
+  //CREATES USER INPUT TAG ON SUBMIT
+  const onIngredientChangeHandler = (e) => {
+    setIngredient(e.target.value); //Gets the information of the ingredient from the end user.
+  };
+
+  const onFormSubmitHandler = (e) => {
     e.preventDefault();
-
+    //Checks if something is entered into the input
     if (ingredient) {
-      setTagList((list) => [...list, inputValue]);
+      addTagHandler(ingredient); //If true, then runs addTagHangler()
     } else {
-      console.log("We dont have the recipe you are looking for");
+      console.log("Field can not be empty."); //If false, then returns Error message
     }
-    setIngredient("");
+    setIngredient(""); //Refreshes the input box
+  };
+
+  const addTagHandler = (ingredient) => {
+    let _tagList = [...tagList]; //_tagList is a copy of tagList
+
+    _tagList.push(ingredient); //Pushes new ingredient to the _tagList array
+
+    setTagList(_tagList); //Sets state to new _tagList
   };
 
   // DELETES USER INPUT TAG ON CLICK
-  // FIX : this is deleting all id's at the same time
-  const removeTagHandler = (item) => {
-    // const currId = inputValue;
-    // console.log(currId);
-    // currId.splice(item, 1);
-    // setTagList({ tagList: currId });
+  const removeTagHandler = (index) => {
+    let _tagList = [...tagList];
+
+    _tagList.splice(index, 1); //Removes 1 of that index from the array
+
+    setTagList(_tagList); //Sets state back to new _tagList
   };
 
   return (
@@ -56,7 +66,7 @@ const RecipeHeading = () => {
 
         {/* SEARCH BAR */}
         <div className={classes.searchBar}>
-          <form onSubmit={addTagHandler}>
+          <form onSubmit={(e) => onFormSubmitHandler(e)}>
             <button className={classes.searchBar__searchIcon}>
               <BiSearchAlt />
             </button>
@@ -66,24 +76,28 @@ const RecipeHeading = () => {
               type="text"
               placeholder="Search recipe or ingredient"
               value={ingredient}
-              onChange={(e) => setIngredient(e.target.value)}
+              ref={inputRef}
+              onChange={(e) => onIngredientChangeHandler(e)}
+              autoComplete="off"
             ></input>
           </form>
         </div>
       </div>
 
       {/* RECIPE SEARCHBAR TAG*/}
-      {/* FIX : seems there is extra margin to the latest tag */}
       <section className={classes.RFHeading__searchbarTag}>
-        {tagList.map((item) => (
+        {tagList.map((ingredient, index) => (
           <div
             className={`${typography.paragraph} ${classes.searchBar__tag}`}
-            key={item.id}
+            key={ingredient}
           >
-            <li className={classes.searchBar__tag__spacing}>
-              {item.ingredient}
-            </li>
-            <button className={button.closeBtn} onClick={removeTagHandler}>
+            <li className={classes.searchBar__tag__spacing}>{ingredient}</li>
+            <button
+              className={button.closeBtn}
+              onClick={() => {
+                removeTagHandler(index);
+              }}
+            >
               <AiOutlineClose />
             </button>
           </div>
