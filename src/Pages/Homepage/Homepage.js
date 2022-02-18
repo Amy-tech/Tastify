@@ -2,12 +2,13 @@
 import React from "react";
 
 import HomeComponent from "../../Components/Home/HomeComponent.js";
-import Navbar from "../../Components/Navbar/Navbar.js";
+import Brand from "../../Components/Global Components/App Brand/Brand";
 
 const Homepage = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
+      <Brand />
       <HomeComponent />
     </div>
   );
