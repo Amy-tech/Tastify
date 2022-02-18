@@ -1,17 +1,45 @@
 //IMPORTING RELEVANT COMPONENTS
 import React from "react";
-import { Link } from "react-router-dom";
-import Logo from "../Global Components/Logo/Logo.js";
-import classes from "./Navbar.module.scss";
-import typography from "../Global Components/Global Sass/Typography.module.scss";
 
-const Navbar = (props) => {
+import classes from "./Navbar.module.scss";
+
+const Navbar = () => {
   return (
-    <div className={classes.Navbar}>
-      <div className={classes.Navbar__Container}>
-        {/* LOGO */}
-        <Logo />
-        <h1 className={typography.title}>Tastify</h1>
+    <div className={classes.navigation}>
+      {/* CHECKBOX */}
+      <input
+        type="checkbox"
+        className={classes.navigation__checkbox}
+        id="nav-toggle"
+      ></input>
+
+      {/* NAVIGATION BUTTON */}
+      <label for="nav-toggle" className={classes.navigation__navBtn}>
+        <span className={classes.navigation__navBtn__navIcon}>&nbsp;</span>
+      </label>
+
+      {/* BACKGROUND */}
+      <div className={classes.navigation__background}>&nbsp;</div>
+
+      {/* NAVIGATION LIST */}
+      <div className={classes.navigation__nav}>
+        <ul className={classes.navigation__list}>
+          <li className={classes.navigation__item}>
+            <a href="#" className={classes.navigation__link}>
+              <span>01</span> Favorites
+            </a>
+          </li>
+          <li className={classes.navigation__item}>
+            <a href="#" className={classes.navigation__link}>
+              <span>02</span> Profile
+            </a>
+          </li>
+          <li className={classes.navigation__item}>
+            <a href="#" className={classes.navigation__link}>
+              <span>03</span> Logout
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

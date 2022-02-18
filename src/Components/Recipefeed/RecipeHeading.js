@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 
 import Logo from "../Global Components/Logo/Logo.js";
+import Navbar from "../Navbar/Navbar.js";
+
 import classes from "./RecipeHeading.module.scss";
 import typography from "../Global Components/Global Sass/Typography.module.scss";
 import button from "../Global Components/Buttons/Button.module.scss";
@@ -47,6 +49,11 @@ const RecipeHeading = () => {
 
   return (
     <section className={classes.RFHeading}>
+      {/* NAVIGATION BAR */}
+      <div className={classes.RFHeading__navbar}>
+        <Navbar />
+      </div>
+
       {/* GREETING */}
       <div className={classes.RFHeading__greeting}>
         <Logo />
