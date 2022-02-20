@@ -13,13 +13,13 @@ const Signup = (props) => {
         <input type="password" placeholder="Password"></input>
         <input type="password" placeholder="Confirm Password"></input>
         <button
-          //className={classes.Signup__Button}
           className={`${button.btn} ${button.btn__primary} ${classes.Signup__Button}`}
         >
           Sign Up
         </button>
         <p>
-          Already have an account? <span>Login</span>
+          Already have an account?{" "}
+          <span onClick={props.toggleIsSigningUp}>Login</span>
         </p>
       </form>
     </div>

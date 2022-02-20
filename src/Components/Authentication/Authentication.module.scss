@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Gideon+Roman&display=swap");
+
 .Authentication {
   position: absolute;
   background-color: whitesmoke;
+  font-family: "Gideon Roman", cursive;
   top: 50%;
   left: 40%;
   transform: translateX(-50%) translateY(-50%);
@@ -20,13 +23,20 @@
 
 .Authentication__Backdrop {
   position: absolute;
+  padding: 1rem;
   width: 550px;
   display: flex;
+  z-index: 100;
   align-items: center;
-  top: -100px;
+  top: -70px;
   border-radius: 20% 38% 900% 20%;
   height: 280px;
-  background-color: #f5b202;
+  background: rgb(245, 178, 2);
+  background: linear-gradient(
+    162deg,
+    rgba(245, 178, 2, 1) 0%,
+    rgba(198, 160, 63, 1) 100%
+  );
   .Header {
     color: white;
 
@@ -35,7 +45,23 @@
       font-size: 3rem;
     }
     p {
-      font-size: 1rem;
+      font-size: 1.3rem;
+      margin-left: 5px;
     }
   }
+}
+@keyframes backdrop {
+  0% {
+  }
+  50% {
+    border-radius: none;
+    transform: rotate(0);
+    height: calc(100% + 400px);
+  }
+  100% {
+  }
+}
+
+.animate {
+  animation: backdrop 2s linear forwards;
 }
