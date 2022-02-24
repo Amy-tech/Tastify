@@ -33,23 +33,6 @@
     grid-row: 2;
     grid-column: 1 / -1;
     display: flex;
-
-    text-transform: uppercase;
-
-    :not(:last-child) {
-      padding-right: 4rem;
-    }
-
-    &_V {
-      color: rgb(107, 142, 35);
-      font-size: 2.5rem;
-      opacity: 80%;
-    }
-    &_S {
-      color: rgb(248, 73, 66);
-      font-size: 2.5rem;
-      opacity: 80%;
-    }
   }
 
   &__name {
@@ -62,4 +45,9 @@
     font-size: 1.2rem;
     color: rgb(156, 155, 155);
   }
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
 }
