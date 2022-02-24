@@ -1,10 +1,23 @@
 .card {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  &__small {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 
-  width: 50%;
-  height: 30rem;
-  box-shadow: 0 0 10px #a9a9a9;
-  border-radius: 1.5rem;
-  background-color: #fff;
+    width: 50%;
+    height: 30rem;
+    box-shadow: 0 0 10px #a9a9a9;
+    border-radius: 1.5rem;
+    background-color: #fff;
+  }
+
+  &__big {
+    display: grid;
+    grid-template-rows: 30vh 1fr 1fr;
+
+    width: 80%;
+    height: 100%;
+    box-shadow: 0 0 10px #a9a9a9;
+    border-radius: 1.5rem;
+    background-color: #fff;
+  }
 }

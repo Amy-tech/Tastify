@@ -1,0 +1,18 @@
+.type {
+  text-transform: uppercase;
+
+  :not(:last-child) {
+    padding-right: 4rem;
+  }
+
+  &__V {
+    color: rgb(107, 142, 35);
+    font-size: 2.5rem;
+    opacity: 80%;
+  }
+  &__S {
+    color: rgb(248, 73, 66);
+    font-size: 2.5rem;
+    opacity: 80%;
+  }
+}
