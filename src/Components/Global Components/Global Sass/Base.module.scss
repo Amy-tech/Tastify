@@ -5,6 +5,11 @@
   padding: 0;
 }
 
+*::selection {
+  color: white;
+  background-color: #89a54f;
+}
+
 html {
   // this defines what 1rem is
   font-size: 62.5%;

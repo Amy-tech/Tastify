@@ -94,3 +94,31 @@
     transform: scale(1);
   }
 }
+
+.binSmall {
+  font-size: 2rem;
+  padding-left: 5rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 100%;
+  transition: all 0.4s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:active,
+  &:focus {
+    transform: scale(1);
+  }
+}
+
+.binLarge {
+  color: #333;
+  background-color: #f5b202;
+  padding: 0.2rem 8rem;
+  margin: 1rem 0 0 5rem;
+}
+.binLarge:hover {
+  background-color: #d49800;
+}

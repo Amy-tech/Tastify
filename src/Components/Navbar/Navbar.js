@@ -35,8 +35,13 @@ const Navbar = () => {
             </a>
           </li>
           <li className={classes.navigation__item}>
+            <a href={"/createrecipe"} className={classes.navigation__link}>
+              <span>03</span> New recipe
+            </a>
+          </li>
+          <li className={classes.navigation__item}>
             <a href="#" className={classes.navigation__link}>
-              <span>03</span> Logout
+              <span>04</span> Logout
             </a>
           </li>
         </ul>

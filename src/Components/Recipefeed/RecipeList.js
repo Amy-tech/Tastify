@@ -220,6 +220,7 @@ const RecipeList = () => {
       image={recipe.image}
       name={recipe.name}
       description={recipe.description}
+      type={recipe.type} //newly added
       ingredients={recipe.ingredients}
       portion={recipe.portion}
       method={recipe.method}
