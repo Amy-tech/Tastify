@@ -42,7 +42,7 @@ const RecipeMethod = () => {
             {/* RECIPE IMAGE */}
             <img
               src={recipeData.image}
-              alt={"testing image"}
+              alt={recipeData.name}
               className={classes.method__image}
             />
           </div>

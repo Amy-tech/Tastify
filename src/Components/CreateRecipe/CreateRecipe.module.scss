@@ -1,0 +1,43 @@
+.createform {
+  height: 100%;
+  background-image: linear-gradient(
+      to right bottom,
+      rgb(242, 174, 2, 0.4),
+      rgb(212, 152, 0, 0.4)
+    ),
+    url(../../images/hero.jpg);
+  background-size: cover;
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  &__heading {
+    padding-top: 10rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__title {
+    width: 60%;
+    padding: 6rem 0;
+    border: 0.3rem solid #fff;
+    border-radius: 0.3rem 4rem 0.3rem 4rem;
+    background-color: #f5b202;
+  }
+  &__formcontent {
+    margin: 5% 0 0 20%;
+    border-radius: 0.3rem 4rem 0.3rem 4rem;
+    width: 60%;
+    height: 100%;
+    background-color: #fff;
+  }
+  &__form {
+    margin: 6rem;
+  }
+  &__sectionheadings {
+    font-weight: 100;
+    text-transform: uppercase;
+  }
+}
