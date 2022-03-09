@@ -1,3 +1,4 @@
+// this is the actual recipe and is accessed when the user clicks on the recipe name
 import React, { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 

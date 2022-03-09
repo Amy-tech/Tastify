@@ -10,9 +10,6 @@ import classes from "./RecipeItem.module.scss";
 import typography from "../Global Components/Global Sass/Typography.module.scss";
 import recipetype from "../Global Components/Global Sass/RecipeType.module.scss";
 
-// REMEMBER TODO
-// Make CSS for Types global
-
 const RecipeItem = (props) => {
   const recipeData = { ...props };
   console.log(recipeData);

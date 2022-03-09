@@ -211,6 +211,7 @@ const DUMMY_RECIPES = [
     owner: "This recipe was created by : Francois",
   },
 ];
+
 const RecipeList = () => {
   // console.log(typeof DUMMY_RECIPES);
   const recipeList = DUMMY_RECIPES.map((recipe) => (
