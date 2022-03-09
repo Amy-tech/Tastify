@@ -1,5 +1,7 @@
+// BACKGROUND
 .createform {
   height: 100%;
+  padding-bottom: 10rem;
   background-image: linear-gradient(
       to right bottom,
       rgb(242, 174, 2, 0.4),
@@ -11,6 +13,7 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
 
+  // HEADER
   &__heading {
     padding-top: 10rem;
     text-align: center;
@@ -22,16 +25,20 @@
   &__title {
     width: 60%;
     padding: 6rem 0;
-    border: 0.3rem solid #fff;
+    border: 0.2rem solid #fff;
     border-radius: 0.3rem 4rem 0.3rem 4rem;
     background-color: #f5b202;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
+
+  // FORM
   &__formcontent {
     margin: 5% 0 0 20%;
-    border-radius: 0.3rem 4rem 0.3rem 4rem;
+    border-radius: 0.3rem;
     width: 60%;
     height: 100%;
     background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
   &__form {
     margin: 6rem;

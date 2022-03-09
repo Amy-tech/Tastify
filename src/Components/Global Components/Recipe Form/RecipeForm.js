@@ -1,4 +1,11 @@
+/*REMEMBER TODO 
+>> textarea can not increase width only height
+>> align the bins to be on the right of the method and ingredient content preview area 
+*/
+
 import React, { useRef, useState } from "react";
+import SubmitModal from "../../CreateRecipe/SubmitModal";
+import ErrorModal from "../../CreateRecipe/ErrorModal";
 import classes from "./RecipeForm.module.scss";
 import typography from "../Global Sass/Typography.module.scss";
 import button from "../Buttons/Button.module.scss";
@@ -9,20 +16,21 @@ import { AiOutlineEnter } from "react-icons/ai";
 import { RiDeleteBin7Fill } from "react-icons/ri";
 
 const RecipeForm = () => {
-  // RECIPE IMAGE STATE
+  // IMAGE STATE
   const [imagePreview, setImagePreview] = useState(null);
   const [imageError, setImageError] = useState(false);
 
-  // RECIPE PORTION STATE
-  const [portionCount, setPortionCount] = useState(1);
+  // NAME STATE
+  const [recipeName, setRecipeName] = useState("");
 
-  // RECIPE METHOD STATE
-  const [method, setMethod] = useState("");
-  const [methodList, setMethodList] = useState([]);
+  // DESCRIPTION STATE
+  const [recipeDescription, setRecipeDescription] = useState("");
 
-  const methodRef = useRef(null);
+  // TYPE STATE
+  const types = [{ label: "vegetarian" }, { label: "spice" }];
+  const [recipeType, setRecipeType] = useState([]);
 
-  // RECIPE MEASUREMENT STATE
+  // MEASUREMENT STATE
   const [amount, setAmount] = useState("");
   const [measurement, setMeasurement] = useState("");
   const [ingredient, setIngredient] = useState("");
@@ -31,6 +39,23 @@ const RecipeForm = () => {
   const amountRef = useRef(null);
   const measurementRef = useRef(null);
   const ingredientRef = useRef(null);
+
+  // PORTION STATE
+  const [portionCount, setPortionCount] = useState(1);
+
+  // METHOD STATE
+  const [method, setMethod] = useState("");
+  const [methodList, setMethodList] = useState([]);
+
+  const methodRef = useRef(null);
+
+  // USERNAME STATE
+  const [username, setUsername] = useState("");
+
+  // SUBMITTING STATE
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
+  const [error, setError] = useState(null);
 
   // IMAGE CHANGE HANDLER
   const imageChangeHandler = (e) => {
@@ -53,57 +78,31 @@ const RecipeForm = () => {
     setImagePreview(null);
   };
 
-  // PORTION ADD HANDLER
-  const portionAddHandler = (e) => {
-    e.preventDefault();
-    if (portionCount <= 7) {
-      setPortionCount(portionCount + 1);
-    }
+  // NAME HANDLER
+  const recipeNameHandler = (e) => {
+    setRecipeName(e.target.value);
   };
 
-  // PORTION SUBTRACT HANDLER
-  const portionSubtractHandler = (e) => {
-    e.preventDefault();
-    if (portionCount > 1) {
-      setPortionCount(portionCount - 1);
-    }
+  // DESCRIPTION HANDLER
+  const recipeDescriptionHandler = (e) => {
+    setRecipeDescription(e.target.value);
   };
 
-  // METHOD CHANGE HANDLER
-  const onMethodChangeHandler = (e) => {
-    setMethod(e.target.value);
-  };
-
-  // METHOD SUBMIT HANDLER
-  const onMethodSubmitHandler = (e) => {
-    e.preventDefault();
-
-    if (method) {
-      addMethodListHandler(method);
+  // TYPE HANDLER
+  const recipeTypeHandler = (e) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      let _recipeType = [...recipeType];
+      _recipeType.push(e.target.value);
+      setRecipeType(_recipeType);
     } else {
-      console.log("Field can not be empty.");
+      let _recipeType = [...recipeType];
+      _recipeType.splice(!isChecked.toString().indexOf(e.target.value), 1);
+      setRecipeType(_recipeType);
     }
-    setMethod("");
   };
 
-  const addMethodListHandler = (method) => {
-    let _methodList = [...methodList];
-
-    _methodList.push(method);
-
-    setMethodList(_methodList);
-  };
-
-  // DELETES METHOD LIST ITEM
-  const removeMethodHandler = (index) => {
-    let _methodList = [...methodList];
-
-    _methodList.splice(index, 1);
-
-    setMethodList(_methodList);
-  };
-
-  // MEASUREMENT CHANGE HANDLER
+  // MEASUREMENT HANDLER
 
   const onAmountChangeHandler = (e) => {
     setAmount(e.target.value);
@@ -138,7 +137,7 @@ const RecipeForm = () => {
     setMeasurementList(_measurementList);
   };
 
-  // DELETES MEASUREMENT LIST ITEM
+  // MEASUREMENT BIN HANDLER
   const removeMeasurementHandler = (index) => {
     let _measurementList = [...measurementList];
 
@@ -147,9 +146,110 @@ const RecipeForm = () => {
     setMeasurementList(_measurementList);
   };
 
-  // Form Submit Handler
-  const recipeFromSubmit = () => {
-    console.log("the submit btn was clicked");
+  // PORTION ADD HANDLER
+  const portionAddHandler = (e) => {
+    e.preventDefault();
+    if (portionCount <= 7) {
+      setPortionCount(portionCount + 1);
+    }
+  };
+
+  // PORTION SUBTRACT HANDLER
+  const portionSubtractHandler = (e) => {
+    e.preventDefault();
+    if (portionCount > 1) {
+      setPortionCount(portionCount - 1);
+    }
+  };
+
+  // METHOD HANDLER
+  const onMethodChangeHandler = (e) => {
+    setMethod(e.target.value);
+  };
+
+  // METHOD SUBMIT HANDLER
+  const onMethodSubmitHandler = (e) => {
+    e.preventDefault();
+
+    if (method) {
+      addMethodListHandler(method);
+    } else {
+      console.log("Field can not be empty.");
+    }
+    setMethod("");
+  };
+
+  const addMethodListHandler = (method) => {
+    let _methodList = [...methodList];
+
+    _methodList.push(method);
+
+    setMethodList(_methodList);
+  };
+
+  // METHOD BIN HANDLER
+  const removeMethodHandler = (index) => {
+    let _methodList = [...methodList];
+
+    _methodList.splice(index, 1);
+
+    setMethodList(_methodList);
+  };
+
+  // USERNAME HANDLER
+  const usernameHandler = (e) => {
+    setUsername(e.target.value);
+  };
+
+  // FORM INPUT VALUE
+  const recipe = {
+    image: imagePreview,
+    name: recipeName,
+    description: recipeDescription,
+    type: recipeType,
+    measurement: measurementList,
+    portion: portionCount,
+    method: methodList,
+    userName: username,
+  };
+
+  // FORM VALIDATION HELPER FUNCTION
+  const isEmpty = (value) => value.toString().trim() === "";
+
+  // FORM SUBMIT HANDLER
+  const postRecipeHandler = async (e) => {
+    e.preventDefault();
+    const enteredRecipeNameIsValid = !isEmpty(recipe.name);
+    const enteredRecipeDescriptionIsValid = !isEmpty(recipe.description);
+    const enteredUserNameIsValid = !isEmpty(recipe.userName);
+
+    const formIsValid =
+      enteredRecipeNameIsValid &&
+      enteredRecipeDescriptionIsValid &&
+      enteredUserNameIsValid;
+
+    if (formIsValid) {
+      setIsSubmitting(true);
+
+      await fetch(
+        "https://recipe-book-a37e0-default-rtdb.europe-west1.firebasedatabase.app/recipes.json",
+        {
+          method: "POST",
+          body: JSON.stringify(recipe),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      setIsSubmitting(false);
+      setDidSubmit(true);
+    } else {
+      setError(true);
+    }
+  };
+
+  // CLOSE ERROR MODAL
+  const handleCloseModal = () => {
+    setError(false);
   };
 
   return (
@@ -173,6 +273,7 @@ const RecipeForm = () => {
               id="recipeImage"
               name="recipeImage"
               accept="image/*"
+              required
             ></input>
             <label
               htmlFor="recipeImage"
@@ -226,6 +327,7 @@ const RecipeForm = () => {
 
           <div className={classes.createform__content}>
             <input
+              onChange={recipeNameHandler}
               autoComplete="off"
               className={classes.createform__input}
               type="text"
@@ -240,6 +342,7 @@ const RecipeForm = () => {
             {/* RECIPE DESCRIPTION */}
 
             <textarea
+              onChange={recipeDescriptionHandler}
               autoComplete="off"
               className={classes.createform__input}
               type="text"
@@ -267,35 +370,25 @@ const RecipeForm = () => {
           </div>
 
           <div className={classes.createform__typeContent}>
-            <div className={classes.createform__checkboxGroup}>
-              <input
-                type="checkbox"
-                className={classes.createform__checkboxInput}
-                id="vegetarian"
-              ></input>
-              <label
-                htmlFor="vegetarian"
-                className={classes.createform__checkboxLabel}
-              >
-                <span className={classes.createform__checkboxBtn}></span>
-                Vegetarian
-              </label>
-            </div>
-
-            <div className={classes.createform__checkboxGroup}>
-              <input
-                type="checkbox"
-                className={classes.createform__checkboxInput}
-                id="spice"
-              ></input>
-              <label
-                htmlFor="spice"
-                className={classes.createform__checkboxLabel}
-              >
-                <span className={classes.createform__checkboxBtn}></span>
-                Spice
-              </label>
-            </div>
+            {types.map((input, index) => (
+              <div key={index} className={classes.createform__checkboxGroup}>
+                <input
+                  value={input.label}
+                  onChange={recipeTypeHandler}
+                  name="recipeType"
+                  type="checkbox"
+                  id={input.label}
+                  className={classes.createform__checkboxInput}
+                />
+                <label
+                  htmlFor={input.label}
+                  className={classes.createform__checkboxLabel}
+                >
+                  <span className={classes.createform__checkboxBtn}></span>
+                  {input.label}
+                </label>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -323,6 +416,7 @@ const RecipeForm = () => {
                 ref={amountRef}
                 value={amount}
                 id="amount"
+                required
               ></input>
               <label htmlFor="amount" className={classes.createform__label}>
                 Ingredient Amount
@@ -335,6 +429,7 @@ const RecipeForm = () => {
                 onChange={onMeasurementChangeHandler}
                 ref={measurementRef}
                 value={measurement}
+                required
               >
                 <option value="" disabled selected hidden>
                   Ingredient Measurement
@@ -360,6 +455,7 @@ const RecipeForm = () => {
                 <option value="can">can</option>
                 <option value="punnet">punnet</option>
                 <option value="slices">slices</option>
+                <option value="handful">handful</option>
               </select>
             </div>
             <div className={classes.createform__ingredientInputDiv}>
@@ -373,6 +469,7 @@ const RecipeForm = () => {
                 ref={ingredientRef}
                 onChange={onIngredientChangeHandler}
                 autoComplete="off"
+                required
               ></input>
               <label htmlFor="ingredient" className={classes.createform__label}>
                 Recipe Ingredient
@@ -475,7 +572,7 @@ const RecipeForm = () => {
 
           <div className={classes.createform__methodContent}>
             <div className={classes.createform__methodInput}>
-              <input
+              <textarea
                 name="method"
                 className={classes.createform__input}
                 type="text"
@@ -485,7 +582,8 @@ const RecipeForm = () => {
                 ref={methodRef}
                 onChange={onMethodChangeHandler}
                 autoComplete="off"
-              ></input>
+                required
+              ></textarea>
               <label
                 htmlFor="recipemethod"
                 className={classes.createform__label}
@@ -545,6 +643,7 @@ const RecipeForm = () => {
 
           <div className={classes.createform__content}>
             <input
+              onChange={usernameHandler}
               autoComplete="off"
               className={classes.createform__input}
               type="text"
@@ -560,16 +659,28 @@ const RecipeForm = () => {
 
         {/* SUBMISSION */}
         <div className={classes.createform__submission}>
-          <p className={typography.primary__headingSmall}>
-            You will be able to edit this recipe in your profile
-          </p>
+          {!isSubmitting ? (
+            <p className={typography.primary__headingSmall}>
+              You will be able to edit this recipe in your profile
+            </p>
+          ) : (
+            <p className={typography.primary__headingSmall}>
+              Thankyou for submitting the recipe
+            </p>
+          )}
           <button
-            onclick={recipeFromSubmit}
+            onClick={postRecipeHandler}
             className={`${button.btn} ${button.btn__primary} ${classes.createform__recipeSubmitBtn}`}
           >
             Submit
           </button>
+
+          {/* SUCCESSFUL SUBMITION MODAL */}
+          {didSubmit && <SubmitModal />}
         </div>
+
+        {/* ERROR MODAL */}
+        {error && <ErrorModal onClose={handleCloseModal} />}
       </form>
     </div>
   );
