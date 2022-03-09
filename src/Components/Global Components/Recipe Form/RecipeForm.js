@@ -1,8 +1,3 @@
-/*REMEMBER TODO 
->> textarea can not increase width only height
->> align the bins to be on the right of the method and ingredient content preview area 
-*/
-
 import React, { useRef, useState } from "react";
 import SubmitModal from "../../CreateRecipe/SubmitModal";
 import ErrorModal from "../../CreateRecipe/ErrorModal";
@@ -344,7 +339,7 @@ const RecipeForm = () => {
             <textarea
               onChange={recipeDescriptionHandler}
               autoComplete="off"
-              className={classes.createform__input}
+              className={`${classes.createform__input} ${classes.createform__textarea}`}
               type="text"
               placeholder="Recipe Description"
               id="recipedescription"
@@ -490,7 +485,7 @@ const RecipeForm = () => {
 
           {/* INGREDIENT PREVIEW */}
           <div
-            className={`${classes.createform__measurementList} ${classes.createform__border}`} //REMEMBER to change all css classes
+            className={`${classes.createform__measurementList} ${classes.createform__border}`}
           >
             <p
               className={`${typography.primary__headingSmall} ${classes.createform__measurementListHeading}`}
@@ -501,14 +496,16 @@ const RecipeForm = () => {
             <ul className={classes.createform__measurementUL}>
               {measurementList.map((measurement, index) => (
                 <div
-                  className={classes.createform__orderedList}
+                  className={`${classes.createform__orderedList} ${classes.createform__preview}`}
                   key={measurement}
                 >
-                  <li className={classes.createform__measurementListSpacing}>
+                  <li
+                    className={`${classes.createform__measurementListSpacing} ${classes.createform__list}`}
+                  >
                     {measurement}
                   </li>
                   <button
-                    className={button.binSmall}
+                    className={`${button.binSmall} ${classes.createform__theBin}`}
                     onClick={() => {
                       removeMeasurementHandler(index);
                     }}
@@ -574,7 +571,7 @@ const RecipeForm = () => {
             <div className={classes.createform__methodInput}>
               <textarea
                 name="method"
-                className={classes.createform__input}
+                className={`${classes.createform__input} ${classes.createform__textarea}`}
                 type="text"
                 placeholder="Recipe Method"
                 id="recipemethod"
@@ -613,12 +610,17 @@ const RecipeForm = () => {
 
             <ol>
               {methodList.map((method, index) => (
-                <div className={classes.createform__orderedList} key={method}>
-                  <li className={classes.createform__methodListSpacing}>
+                <div
+                  className={`${classes.createform__orderedList} ${classes.createform__preview}`}
+                  key={method}
+                >
+                  <li
+                    className={`${classes.createform__methodListSpacing} ${classes.createform__list}`}
+                  >
                     {method}
                   </li>
                   <button
-                    className={button.binSmall}
+                    className={`${button.binSmall} ${classes.createform__theBin}`}
                     onClick={() => {
                       removeMethodHandler(index);
                     }}

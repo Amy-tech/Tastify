@@ -1,12 +1,23 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import typography from "../Global Components/Global Sass/Typography.module.scss";
+import button from "../Global Components/Buttons/Button.module.scss";
 import classes from "./CreateRecipe.module.scss";
 import RecipeForm from "../Global Components/Recipe Form/RecipeForm";
 
 const CreateRecipe = () => {
   return (
     <div className={classes.createform}>
+      {/* BACK BUTTON */}
+      <div className={classes.createform__nevermind}>
+        <Link
+          to={{ pathname: "/RecipeFeed" }}
+          className={`${button.btn} ${button.btn__primary} ${classes.modal__modalBody_btn}`}
+        >
+          nevermind
+        </Link>
+        {/* HEADER */}
+      </div>
       <div className={classes.createform__heading}>
         <div className={classes.createform__title}>
           <h1 className={typography.primary__headingMedium}>
@@ -17,7 +28,7 @@ const CreateRecipe = () => {
           </p>
         </div>
       </div>
-
+      {/* CONTENT */}
       <div className={classes.createform__formcontent}>
         <RecipeForm />
       </div>
