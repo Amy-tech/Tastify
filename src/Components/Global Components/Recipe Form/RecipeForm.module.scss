@@ -28,6 +28,16 @@
     border-radius: 0.3rem;
   }
 
+  &__textarea {
+    resize: vertical;
+  }
+
+  &__preview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
+  }
+
   // IMAGE CSS - FILE INPUT
   &__imageContent {
     margin-top: 6rem;
@@ -224,6 +234,12 @@
   }
   &__measurementListSpacing {
     word-spacing: 1rem;
+  }
+  &__list {
+    grid-column: 1 / 2;
+  }
+  &__theBin {
+    grid-column: 1 / -1;
   }
 
   // PORTION - SELECT DROPDOWN
