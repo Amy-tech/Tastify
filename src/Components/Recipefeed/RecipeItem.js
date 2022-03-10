@@ -13,6 +13,49 @@ import recipetype from "../Global Components/Global Sass/RecipeType.module.scss"
 const RecipeItem = (props) => {
   const recipeData = { ...props };
   console.log(recipeData);
+  const getValue = recipeData.type;
+
+  // ADD TYPE HANDLER
+  const addTypeHandler = () => {
+    if (getValue !== undefined) {
+      const newValue = getValue.toString();
+
+      if (newValue === "vegetarian") {
+        return (
+          <div
+            className={`${classes.recipeItem__type} ${recipetype.type} ${typography.paragraph}`}
+          >
+            <p>
+              <FaLeaf className={recipetype.type__V} /> Vegetarian
+            </p>
+          </div>
+        );
+      } else if (newValue === "spice") {
+        return (
+          <div
+            className={`${classes.recipeItem__type} ${recipetype.type} ${typography.paragraph}`}
+          >
+            <p>
+              <GoFlame className={recipetype.type__S} /> Spice
+            </p>
+          </div>
+        );
+      } else if (newValue === "vegetarian,spice") {
+        return (
+          <div
+            className={`${classes.recipeItem__type} ${recipetype.type} ${typography.paragraph}`}
+          >
+            <p>
+              <FaLeaf className={recipetype.type__V} /> Vegetarian
+            </p>
+            <p>
+              <GoFlame className={recipetype.type__S} /> Spice
+            </p>
+          </div>
+        );
+      }
+    }
+  };
 
   return (
     <li className={classes.recipeItem}>
@@ -30,17 +73,7 @@ const RecipeItem = (props) => {
           </div>
 
           {/* RECIPE TYPE */}
-          <div
-            className={`${classes.recipeItem__type} ${recipetype.type} ${typography.paragraph}`}
-          >
-            <p>
-              <FaLeaf className={recipetype.type__V} /> Vegetarian
-            </p>
-
-            <p>
-              <GoFlame className={recipetype.type__S} /> Spice
-            </p>
-          </div>
+          {addTypeHandler()}
 
           {/* RECIPE NAME */}
           <div className={classes.recipeItem__name}>

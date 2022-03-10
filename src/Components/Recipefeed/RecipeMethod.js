@@ -11,21 +11,64 @@ import button from "../Global Components/Buttons/Button.module.scss";
 import classes from "../Recipefeed/RecipeMethod.module.scss";
 
 const RecipeMethod = () => {
+  // METHOD STATE
   const [showMethod, setShowMethod] = useState(false);
 
+  // FETCHING RECIPE DATA
   const location = useLocation();
   const { recipeData } = location.state;
 
-  const method = recipeData.method.map((methodData) => <li>{methodData}</li>);
-  const ingredient = recipeData.ingredients.map((ingredientData) => (
-    <li>
-      {ingredientData.amount +
-        " " +
-        ingredientData.unitOfMeasurment +
-        " " +
-        ingredientData.ingredient}
-    </li>
+  // ADDING TYPE HANDLER
+  const getValue = recipeData.type;
+
+  const addTypeHandler = () => {
+    if (getValue !== undefined) {
+      const newValue = getValue.toString();
+
+      if (newValue === "vegetarian") {
+        return (
+          <div
+            className={`${classes.method__gridOne_type} ${recipetype.type} ${typography.paragraph}`}
+          >
+            <p>
+              <FaLeaf className={recipetype.type__V} /> Vegetarian
+            </p>
+          </div>
+        );
+      } else if (newValue === "spice") {
+        return (
+          <div
+            className={`${classes.method__gridOne_type} ${recipetype.type} ${typography.paragraph}`}
+          >
+            <p>
+              <GoFlame className={recipetype.type__S} /> Spice
+            </p>
+          </div>
+        );
+      } else if (newValue === "vegetarian,spice") {
+        return (
+          <div
+            className={`${classes.method__gridOne_type} ${recipetype.type} ${typography.paragraph}`}
+          >
+            <p>
+              <FaLeaf className={recipetype.type__V} /> Vegetarian
+            </p>
+            <p>
+              <GoFlame className={recipetype.type__S} /> Spice
+            </p>
+          </div>
+        );
+      }
+    }
+  };
+
+  // MAPPING INGREDIENTS
+  const ingredient = recipeData.ingredients.map((measurementData) => (
+    <li>{measurementData}</li>
   ));
+
+  // MAPPING METHODS
+  const method = recipeData.method.map((methodData) => <li>{methodData}</li>);
 
   const toggleMethod = () => {
     if (!showMethod) {
@@ -59,24 +102,16 @@ const RecipeMethod = () => {
               </Link>
 
               {/* RECIPE TYPE */}
-              <div
-                className={`${classes.method__gridOne_type} ${recipetype.type} ${typography.paragraph}`}
-              >
-                <p>
-                  <FaLeaf className={recipetype.type__V} /> Vegetarian
-                </p>
-
-                <p>
-                  <GoFlame className={recipetype.type__S} /> Spice
-                </p>
-              </div>
+              {addTypeHandler()}
             </div>
+
             {/* NAME */}
             <h1
               className={`${typography.primary__headingMedium} ${classes.method__name}`}
             >
               {recipeData.name}
             </h1>
+
             {/* DESCRIPTION */}
             <h2
               className={`${typography.primary__headingSmall} ${classes.method__headings}`}
@@ -147,10 +182,3 @@ const RecipeMethod = () => {
 };
 
 export default RecipeMethod;
-
-// TODO output method and ingredient array
-/*
-  <ul>
-    {props.method.map((method, i)=> <li key={i}>{method}</li>)}
-  </ul>
-*/
