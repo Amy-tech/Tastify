@@ -12,7 +12,6 @@ import recipetype from "../Global Components/Global Sass/RecipeType.module.scss"
 
 const RecipeItem = (props) => {
   const recipeData = { ...props };
-  console.log(recipeData);
   const getValue = recipeData.type;
 
   // ADD TYPE HANDLER

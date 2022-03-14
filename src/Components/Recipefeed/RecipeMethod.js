@@ -11,16 +11,19 @@ import button from "../Global Components/Buttons/Button.module.scss";
 import classes from "../Recipefeed/RecipeMethod.module.scss";
 
 const RecipeMethod = () => {
-  // METHOD STATE
-  const [showMethod, setShowMethod] = useState(false);
-
   // FETCHING RECIPE DATA
   const location = useLocation();
   const { recipeData } = location.state;
+  console.log(recipeData);
+
+  // CALCULATION STATE
+  const [newAmount, setNewAmount] = useState();
+
+  // METHOD STATE
+  const [showMethod, setShowMethod] = useState(false);
 
   // ADDING TYPE HANDLER
   const getValue = recipeData.type;
-
   const addTypeHandler = () => {
     if (getValue !== undefined) {
       const newValue = getValue.toString();
@@ -62,9 +65,38 @@ const RecipeMethod = () => {
     }
   };
 
+  // TODO:
+  // PORTION CALCULATOR
+  // const ingredientCalc = () => {
+  //   const amount = recipeData.amount;
+  //   const portion = recipeData.portion;
+
+  //   //converting strings to integers - this works
+  //   const amountToNumber = amount.map((n) => {
+  //     return parseFloat(n, 10);
+  //   });
+  //   console.log(amountToNumber);
+
+  //   amountToNumber.forEach((item) => {
+  //     const amountAnswer = item + portion;
+  //     console.log(amountAnswer);
+  //   });
+
+  //   // console.log(amount);
+  //   // console.log(portion);
+  // };
+  // ingredientCalc();
+
   // MAPPING INGREDIENTS
-  const ingredient = recipeData.ingredients.map((measurementData) => (
+
+  const amounts = recipeData.amount.map((amountData) => <li>{amountData}</li>);
+
+  const measurements = recipeData.measurement.map((measurementData) => (
     <li>{measurementData}</li>
+  ));
+
+  const ingredients = recipeData.ingredient.map((ingredientData) => (
+    <li>{ingredientData}</li>
   ));
 
   // MAPPING METHODS
@@ -129,11 +161,29 @@ const RecipeMethod = () => {
                 >
                   Ingredients
                 </h2>
-                <ul
-                  className={`${classes.method__list} ${typography.paragraph}`}
-                >
-                  {ingredient}
-                </ul>
+                <div className={classes.method__ingContainer}>
+                  <div className={classes.method__amount}>
+                    <ul
+                      className={`${classes.method__list} ${typography.paragraph}`}
+                    >
+                      {amounts}
+                    </ul>
+                  </div>
+                  <div className={classes.method__measurment}>
+                    <ul
+                      className={`${classes.method__list} ${typography.paragraph}`}
+                    >
+                      {measurements}
+                    </ul>
+                  </div>
+                  <div className={classes.method__ingredient}>
+                    <ul
+                      className={`${classes.method__list} ${typography.paragraph}`}
+                    >
+                      {ingredients}
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               {/* PORTION */}
