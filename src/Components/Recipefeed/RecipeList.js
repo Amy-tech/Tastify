@@ -23,7 +23,9 @@ const RecipeList = () => {
           name: responseData[key].name,
           description: responseData[key].description,
           type: responseData[key].type,
+          amount: responseData[key].amount,
           measurement: responseData[key].measurement,
+          ingredient: responseData[key].ingredient,
           portion: responseData[key].portion,
           method: responseData[key].method,
           owner: responseData[key].userName,
@@ -31,6 +33,7 @@ const RecipeList = () => {
       }
 
       setRecipes(loadedRecipe);
+      console.log(loadedRecipe);
     };
     fetchRecipe();
   }, []);
@@ -43,7 +46,9 @@ const RecipeList = () => {
       name={recipe.name}
       description={recipe.description}
       type={recipe.type}
-      ingredients={recipe.measurement}
+      amount={recipe.amount}
+      measurement={recipe.measurement}
+      ingredient={recipe.ingredient}
       portion={recipe.portion}
       method={recipe.method}
       owner={recipe.owner}

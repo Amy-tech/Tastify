@@ -68,6 +68,11 @@
     }
   }
 
+  &__ingContainer {
+    display: flex;
+    grid-gap: 2.5rem;
+  }
+
   &__list {
     list-style-type: none;
   }
