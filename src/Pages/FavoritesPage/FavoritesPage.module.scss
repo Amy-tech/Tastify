@@ -1,0 +1,26 @@
+.fav {
+  display: flex;
+  flex-direction: column;
+
+  &__heading {
+    width: 100%;
+    height: 50vh;
+    background-color: #f5b202;
+    border-radius: 0 0 5rem 5rem;
+
+    &_title {
+      text-align: center;
+      padding-top: 6rem;
+    }
+  }
+
+  &__body {
+    text-align: center;
+    margin: auto;
+    width: 100%;
+
+    &_empty {
+      padding-top: 15rem;
+    }
+  }
+}

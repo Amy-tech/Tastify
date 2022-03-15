@@ -29,10 +29,10 @@ const RecipeForm = () => {
   const [amount, setAmount] = useState("");
   const [measurement, setMeasurement] = useState("");
   const [ingredient, setIngredient] = useState("");
-  const [holdsAmount, setHoldsAmount] = useState([]);
-  const [holdsMeasurement, setHoldsMeasurement] = useState([]);
-  const [holdsIngredient, setHoldsIngredient] = useState([]);
-  // const [ingredientState, setIngredientState] = useState({});
+  // const [holdsAmount, setHoldsAmount] = useState([]);
+  // const [holdsMeasurement, setHoldsMeasurement] = useState([]);
+  // const [holdsIngredient, setHoldsIngredient] = useState([]);
+  const [ingredientState, setIngredientState] = useState({});
   const [measurementList, setMeasurementList] = useState([]);
 
   const amountRef = useRef(null);
@@ -130,33 +130,24 @@ const RecipeForm = () => {
 
   const addMeasurementHandler = (amount, measurement, ingredient) => {
     let _measurementList = [...measurementList];
-    // let _ingredientState = {
-    //   amount: amount,
-    //   measurement: measurement,
-    //   ingredient: ingredient,
-    // };
+    let _ingredientState = [
+      {
+        amount: amount,
+        measurement: measurement,
+        ingredient: ingredient,
+      },
+    ];
 
-    // console.log(_ingredientState);
+    console.log(_ingredientState);
 
-    let _holdsAmount = [...holdsAmount];
-    let _holdsMeasurement = [...holdsMeasurement];
-    let _holdsIngredient = [...holdsIngredient];
-
-    // _holdsAmount.push(amount);
-    // _holdsMeasurement.push(measurement);
-    // _holdsIngredient.push(ingredient);
+    // FOR LOOP
 
     _measurementList.push(amount + " " + measurement + " " + ingredient);
-    _holdsAmount.push(amount);
-    _holdsMeasurement.push(measurement);
-    _holdsIngredient.push(ingredient);
-    // _ingredientState.push();
+
+    _ingredientState.push();
 
     setMeasurementList(_measurementList);
-    // setIngredientState(_ingredientState);
-    setHoldsAmount(_holdsAmount);
-    setHoldsMeasurement(_holdsMeasurement);
-    setHoldsIngredient(_holdsIngredient);
+    setIngredientState(_ingredientState);
   };
 
   // MEASUREMENT BIN HANDLER
@@ -230,13 +221,16 @@ const RecipeForm = () => {
     description: recipeDescription,
     type: recipeType,
     // ingredient: ingredientState,
-    amount: holdsAmount,
-    measurement: holdsMeasurement,
-    ingredient: holdsIngredient,
+    ingredients: {
+      amount: amount,
+      measurement: measurement,
+      ingredient: ingredient,
+    },
     portion: portionCount,
     method: methodList,
     userName: username,
   };
+  console.log(recipe);
 
   // FORM VALIDATION HELPER FUNCTION
   const isEmpty = (value) => value.toString().trim() === "";
@@ -719,3 +713,16 @@ const RecipeForm = () => {
 };
 
 export default RecipeForm;
+
+//REMEMBER
+// let _holdsAmount = [...holdsAmount];
+// let _holdsMeasurement = [...holdsMeasurement];
+// let _holdsIngredient = [...holdsIngredient];
+
+// _holdsAmount.push(amount);
+// _holdsMeasurement.push(measurement);
+// _holdsIngredient.push(ingredient);
+
+// setHoldsAmount(_holdsAmount);
+// setHoldsMeasurement(_holdsMeasurement);
+// setHoldsIngredient(_holdsIngredient);
