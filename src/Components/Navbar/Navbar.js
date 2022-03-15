@@ -1,6 +1,6 @@
 //IMPORTING RELEVANT COMPONENTS
 import React from "react";
-
+import button from "../Global Components/Buttons/Button.module.scss";
 import classes from "./Navbar.module.scss";
 
 const Navbar = () => {
@@ -25,7 +25,7 @@ const Navbar = () => {
       <div className={classes.navigation__nav}>
         <ul className={classes.navigation__list}>
           <li className={classes.navigation__item}>
-            <a href="#" className={classes.navigation__link}>
+            <a href={"/favoritespage"} className={classes.navigation__link}>
               <span>01</span> Favorites
             </a>
           </li>
@@ -40,7 +40,7 @@ const Navbar = () => {
             </a>
           </li>
           <li className={classes.navigation__item}>
-            <a href="#" className={classes.navigation__link}>
+            <a href="/" className={classes.navigation__link}>
               <span>04</span> Logout
             </a>
           </li>

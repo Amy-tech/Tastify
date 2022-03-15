@@ -122,3 +122,24 @@
 .binLarge:hover {
   background-color: #d49800;
 }
+
+// BACK BUTTON
+.backBtn {
+  display: block;
+  font-size: 4.5rem;
+  margin: 4rem 0 0 6rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background-color: #fff;
+  border: none;
+  color: #333;
+  box-shadow: 0 1rem 3rem rgba(#000, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

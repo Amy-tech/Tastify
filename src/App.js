@@ -7,8 +7,10 @@ import AuthenticationPage from "./Pages/AuthenticationPage/AuthenticationPage";
 import RecipefeedPage from "./Pages/RecipefeedPage/RecipefeedPage";
 import RecipeMethod from "./Components/Recipefeed/RecipeMethod";
 import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
+import FavoreitesPage from "./Pages/FavoritesPage/FavoritesPage";
 
 import classes from "./Components/Global Components/Global Sass/Base.module.scss";
+import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <Route exact path="/recipefeed" component={RecipefeedPage}></Route>
       <Route exact path="/recipemethod" component={RecipeMethod}></Route>
       <Route exact path="/createrecipe" component={CreateRecipe}></Route>
+      <Route exact path="/favoritespage" component={FavoritesPage}></Route>
     </Fragment>
   );
 }
