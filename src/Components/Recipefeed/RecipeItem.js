@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addRecipeAction } from "../../Store/action.js";
 
-import { FaRegHeart, FaHeart, FaLeaf } from "react-icons/fa";
+import { FaLeaf, FaRegHeart, FaHeart } from "react-icons/fa";
 import { GoFlame } from "react-icons/go";
-import CardSmall from "../Global Components/Card/CardSmall.js";
-import FavoriteBtn from "../Global Components/Buttons/FavoriteBtn.js";
 
-import classes from "./RecipeItem.module.scss";
+import CardSmall from "../Global Components/Card/CardSmall.js";
+import button from "../Global Components/Buttons/Button.module.scss";
 import typography from "../Global Components/Global Sass/Typography.module.scss";
 import recipetype from "../Global Components/Global Sass/RecipeType.module.scss";
+import classes from "./RecipeItem.module.scss";
 
 const RecipeItem = (props) => {
   const recipeData = { ...props };
+  const dispatch = useDispatch();
+
+  // TYPE VALUE
   const getValue = recipeData.type;
+
+  // FAVORITE BTN STATE
+  const [isLiked, setIsLiked] = useState(false);
 
   // ADD TYPE HANDLER
   const addTypeHandler = () => {
@@ -56,6 +64,19 @@ const RecipeItem = (props) => {
     }
   };
 
+  // FAVORITE BUTTON HANDLER
+  const favoriteBtnHandler = (e, index) => {
+    e.preventDefault();
+    setIsLiked(!isLiked);
+    console.log(recipeData); // Normal props --> this fetches only the recipe that was clicked on
+    if (isLiked === false) {
+      console.log("the recipe you clicked on is now favortited");
+      dispatch(addRecipeAction()); // Redux Actions --> this fetches the whole array of recipes
+    } else if (isLiked === true) {
+      console.log("there are no recipes in favorite");
+    }
+  };
+
   return (
     <li className={classes.recipeItem}>
       <CardSmall>
@@ -68,7 +89,19 @@ const RecipeItem = (props) => {
         <div className={classes.recipeItem__content}>
           {/* FAVORITE BUTTON */}
           <div className={classes.recipeItem__favorites}>
-            <FavoriteBtn />
+            <div className={button.favorite}>
+              {isLiked ? (
+                <FaHeart
+                  className={button.favorite__unfill}
+                  onClick={favoriteBtnHandler}
+                />
+              ) : (
+                <FaRegHeart
+                  className={button.favorite__fill}
+                  onClick={favoriteBtnHandler}
+                />
+              )}
+            </div>
           </div>
 
           {/* RECIPE TYPE */}
