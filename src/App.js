@@ -1,5 +1,6 @@
-import { Route, Switch } from "react-router-dom";
 import { Fragment } from "react";
+import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 
 //  IMPORTING PAGES
 import Homepage from "./Pages/Homepage/Homepage";
@@ -7,12 +8,13 @@ import AuthenticationPage from "./Pages/AuthenticationPage/AuthenticationPage";
 import RecipefeedPage from "./Pages/RecipefeedPage/RecipefeedPage";
 import RecipeMethod from "./Components/Recipefeed/RecipeMethod";
 import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
-import FavoreitesPage from "./Pages/FavoritesPage/FavoritesPage";
-
-import classes from "./Components/Global Components/Global Sass/Base.module.scss";
 import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
 
-function App() {
+import classes from "./Components/Global Components/Global Sass/Base.module.scss";
+
+function App({ dispatch, favRecipe }) {
+  console.log(dispatch);
+  console.log(favRecipe);
   return (
     <Fragment className={classes.body}>
       <Route exact path="/" component={Homepage}></Route>
@@ -25,4 +27,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    favRecipe: state.recipe,
+  };
+};
+
+export default connect(mapStateToProps)(App);

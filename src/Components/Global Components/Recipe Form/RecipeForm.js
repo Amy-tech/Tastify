@@ -29,10 +29,10 @@ const RecipeForm = () => {
   const [amount, setAmount] = useState("");
   const [measurement, setMeasurement] = useState("");
   const [ingredient, setIngredient] = useState("");
-  // const [holdsAmount, setHoldsAmount] = useState([]);
-  // const [holdsMeasurement, setHoldsMeasurement] = useState([]);
-  // const [holdsIngredient, setHoldsIngredient] = useState([]);
-  const [ingredientState, setIngredientState] = useState({});
+  const [holdsAmount, setHoldsAmount] = useState([]);
+  const [holdsIngredient, setHoldsIngredient] = useState([]);
+  const [holdsMeasurement, setHoldsMeasurement] = useState([]);
+  // const [ingredientList, setIngredientList] = useState([]);
   const [measurementList, setMeasurementList] = useState([]);
 
   const amountRef = useRef(null);
@@ -130,24 +130,30 @@ const RecipeForm = () => {
 
   const addMeasurementHandler = (amount, measurement, ingredient) => {
     let _measurementList = [...measurementList];
-    let _ingredientState = [
-      {
-        amount: amount,
-        measurement: measurement,
-        ingredient: ingredient,
-      },
-    ];
+    let _holdsAmount = [...holdsAmount];
+    let _holdsMeasurement = [...holdsMeasurement];
+    let _holdsIngredient = [...holdsIngredient];
+    // let _ingredientList = [...ingredientList];
 
-    console.log(_ingredientState);
-
-    // FOR LOOP
+    // console.log(_ingredientList);
 
     _measurementList.push(amount + " " + measurement + " " + ingredient);
+    _holdsAmount.push(amount);
+    _holdsMeasurement.push(measurement);
+    _holdsIngredient.push(ingredient);
 
-    _ingredientState.push();
+    // _ingredientList.push({
+    //   amount: amount,
+    //   measurement: measurement,
+    //   ingredient: ingredient,
+    // });
 
     setMeasurementList(_measurementList);
-    setIngredientState(_ingredientState);
+    setHoldsAmount(_holdsAmount);
+    setHoldsMeasurement(_holdsMeasurement);
+    setHoldsIngredient(_holdsIngredient);
+
+    // setIngredientList(_ingredientList);
   };
 
   // MEASUREMENT BIN HANDLER
@@ -220,17 +226,20 @@ const RecipeForm = () => {
     name: recipeName,
     description: recipeDescription,
     type: recipeType,
-    // ingredient: ingredientState,
-    ingredients: {
-      amount: amount,
-      measurement: measurement,
-      ingredient: ingredient,
-    },
+    amount: holdsAmount,
+    measurement: holdsMeasurement,
+    ingredient: holdsIngredient,
+    // ingredients: ingredientList,
+    // ingredients: {
+    //   amount: amount,
+    //   measurement: measurement,
+    //   ingredient: ingredient,
+    // },
     portion: portionCount,
     method: methodList,
     userName: username,
   };
-  console.log(recipe);
+  // console.log(recipe);
 
   // FORM VALIDATION HELPER FUNCTION
   const isEmpty = (value) => value.toString().trim() === "";

@@ -1,6 +1,5 @@
 //IMPORTING RELEVANT COMPONENTS
 import React from "react";
-import button from "../Global Components/Buttons/Button.module.scss";
 import classes from "./Navbar.module.scss";
 
 const Navbar = () => {

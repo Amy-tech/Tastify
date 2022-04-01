@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+//import { useSelector } from "react-redux";
+
 import RecipeItem from "./RecipeItem.js";
 import classes from "./RecipeList.module.scss";
 
@@ -33,7 +35,6 @@ const RecipeList = () => {
       }
 
       setRecipes(loadedRecipe);
-      console.log(loadedRecipe);
     };
     fetchRecipe();
   }, []);
