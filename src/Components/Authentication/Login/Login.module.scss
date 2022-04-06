@@ -1,40 +1,69 @@
-.Signup {
+.Signin {
   background: whitesmoke;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
   width: 100%;
-  .Signup__Form {
+  .Signin__Form {
     width: 100%;
-    input {
-      margin-bottom: 10px;
-      outline: none;
-      display: block;
-      width: 100%;
-      border: 1px solid #ccc;
-      padding: 1rem;
-      font-family: inherit;
-    }
     p {
       font-size: 1rem;
       text-align: center;
       margin: 10px;
     }
   }
+  &__group:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  &__input {
+    font-size: 1.5rem;
+    font-family: inherit;
+    color: #333;
+    width: 100%;
+    padding: 1rem 2rem;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0.2rem;
+    display: block;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba(black, 0.1);
+      border-bottom: 3px solid #f5b202;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #999;
+    }
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 2rem;
+    display: block;
+    transition: all 0.3s;
+    color: #333;
+  }
+
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-3rem);
+  }
 }
 
-.Signup__Button {
+.Signin__Button {
   display: block;
   margin: 2rem auto;
   font-family: inherit;
-  padding: 1rem 0.5rem;
-  width: 50%;
 }
 
 .Test {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 0;
+  bottom: 1rem;
 }

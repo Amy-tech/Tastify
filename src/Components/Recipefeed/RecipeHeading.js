@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 
 import Logo from "../Global Components/Logo/Logo.js";
 import Navbar from "../Navbar/Navbar.js";
@@ -8,8 +8,13 @@ import typography from "../Global Components/Global Sass/Typography.module.scss"
 import button from "../Global Components/Buttons/Button.module.scss";
 import { BiSearchAlt } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import AuthContext from "../../Store/auth-context.js";
 
 const RecipeHeading = () => {
+  const authCtx = useContext(AuthContext);
+
+  const username = authCtx.displayName;
+
   const [ingredient, setIngredient] = useState("");
   const [tagList, setTagList] = useState([]);
   const inputRef = useRef(null);
@@ -59,7 +64,7 @@ const RecipeHeading = () => {
         <Logo />
         {/* TODO =  retrieve the name of the user details when logged in */}
         <p className={`${classes.RFHeading__welcome} ${typography.title}`}>
-          Hello Amy
+          Hello {username}
         </p>
       </div>
 

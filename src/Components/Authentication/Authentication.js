@@ -37,9 +37,18 @@ const Authentication = (props) => {
             <h3 className={typography.primary__headingsub}>
               {signingUp ? "Create Account" : "Welcome Back"}
             </h3>
-            <p className={typography.primary__headingsub}>
-              Already have an account? <span>Login</span>
-            </p>
+
+            {!signingUp ? (
+              <p className={typography.primary__headingsub}>
+                Dont have an account?{" "}
+                <span onClick={toggleIsSigningUp}>Create Account</span>
+              </p>
+            ) : (
+              <p className={typography.primary__headingsub}>
+                Already have an account?{" "}
+                <span onClick={toggleIsSigningUp}>Login</span>
+              </p>
+            )}
           </div>
         </div>
         {signingUp && <Signup toggleIsSigningUp={toggleIsSigningUp}></Signup>}
