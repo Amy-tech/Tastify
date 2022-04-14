@@ -12,6 +12,7 @@ import { GoFlame } from "react-icons/go";
 const FavoriteList = (props) => {
   // FETCHING STATE
   const recipe = useSelector((state) => state.recipe);
+  console.log(recipe);
 
   useEffect(() => {
     fetch(
