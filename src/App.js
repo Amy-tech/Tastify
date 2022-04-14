@@ -3,12 +3,13 @@ import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
 //  IMPORTING PAGES
-import Homepage from "./Pages/Homepage/Homepage";
+import Homepage from "./Pages/HomePage/Homepage";
 import AuthenticationPage from "./Pages/AuthenticationPage/AuthenticationPage";
 import RecipefeedPage from "./Pages/RecipefeedPage/RecipefeedPage";
 import RecipeMethod from "./Components/Recipefeed/RecipeMethod";
 import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
 import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
+import UserProfile from "./Pages/ProfilePage/UserProfile";
 
 import classes from "./Components/Global Components/Global Sass/Base.module.scss";
 
@@ -23,6 +24,7 @@ function App({ dispatch, favRecipe }) {
       <Route exact path="/recipemethod" component={RecipeMethod}></Route>
       <Route exact path="/createrecipe" component={CreateRecipe}></Route>
       <Route exact path="/favoritespage" component={FavoritesPage}></Route>
+      <Route exact path="/userprofile" component={UserProfile}></Route>
     </Fragment>
   );
 }

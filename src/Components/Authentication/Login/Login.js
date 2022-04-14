@@ -29,6 +29,7 @@ const Login = (props) => {
     // TESTING PURPOSES ONLY //
     console.log(enteredEmail, enteredPassword);
 
+    //LOGIN LOGIC
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBs7w0Fvv7DvUQJZF9jQLoP_tNYc9YbUOM",
       {

@@ -29,7 +29,7 @@ const Navbar = () => {
             </a>
           </li>
           <li className={classes.navigation__item}>
-            <a href="#" className={classes.navigation__link}>
+            <a href="/userprofile" className={classes.navigation__link}>
               <span>02</span> Profile
             </a>
           </li>

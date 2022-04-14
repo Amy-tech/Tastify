@@ -42,6 +42,15 @@
     }
   }
   &__secondary {
+    color: #333;
+    background-color: white;
+    font-weight: bold;
+    &::after {
+      background-color: white;
+    }
+    &:hover {
+      background-color: whitesmoke;
+    }
   }
 }
 

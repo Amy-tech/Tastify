@@ -1,0 +1,48 @@
+.profile {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 25% 75%;
+
+  &__heading {
+    background-color: #f5b202;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    &_userPic {
+      width: 25rem;
+      height: 25rem;
+      border: 0.8rem solid #fff;
+      border-radius: 50%;
+      background-color: #fff;
+      margin: 0 auto;
+      margin-top: 10rem;
+    }
+    &_avitar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    &_userDetails {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    &_subHeading {
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+    &_userName {
+      padding-left: 2rem;
+      font-size: 1.8rem;
+    }
+    &_changePassword {
+      margin-top: 5rem;
+      margin-left: 25%;
+    }
+  }
+  &__body {
+  }
+  &__empty {
+    text-align: center;
+    margin-top: 25%;
+  }
+}
