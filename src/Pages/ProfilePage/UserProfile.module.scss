@@ -6,6 +6,29 @@
   &__heading {
     background-color: #f5b202;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    &_edit {
+      position: absolute;
+      top: 10rem;
+      left: 30rem;
+    }
+
+    &_editInput[type="file"] {
+      display: none;
+    }
+
+    &_editLabel {
+      cursor: pointer;
+      width: 5rem;
+      height: 5rem;
+      background-color: #fff;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+    }
+
     &_userPic {
       width: 25rem;
       height: 25rem;

@@ -1,19 +1,50 @@
-import React from "react";
-import placeholder from "../../images/placeholder.jpg";
+import React, { useState } from "react";
+import defaultPlaceholder from "../../images/placeholder.jpg";
 import typography from "../../Components/Global Components/Global Sass/Typography.module.scss";
 import button from "../../Components/Global Components/Buttons/Button.module.scss";
 import classes from "./UserProfile.module.scss";
+import { ImPencil2 } from "react-icons/im";
+
 const UserProfile = () => {
+  const [profileAvitar, setProfileAvitar] = useState(defaultPlaceholder);
+
+  // Avitar Edit Handler
+
+  const avitarEditHandler = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setProfileAvitar(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   return (
     <div className={classes.profile}>
       <header className={classes.profile__heading}>
+        <div className={classes.profile__heading_edit}>
+          <input
+            type="file"
+            name="image-upload"
+            id="input"
+            accept="image/*"
+            onChange={avitarEditHandler}
+            className={classes.profile__heading_editInput}
+          />
+          <label htmlFor="input" className={classes.profile__heading_editLabel}>
+            <ImPencil2 />
+          </label>
+        </div>
+
         <div className={classes.profile__heading_userPic}>
           <img
-            src={placeholder}
+            src={profileAvitar}
             alt="avitar placeholder"
             className={classes.profile__heading_avitar}
           ></img>
         </div>
+
         <div className={classes.profile__heading_userDetails}>
           <p
             className={`${typography.paragraph} ${classes.profile__heading_subHeading}`}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classes from "./Authentication.module.scss";
 import Signup from "./Signup/Signup";
+import ResetModal from "./Login/ResetModal";
 
 import typography from "../Global Components/Global Sass/Typography.module.scss";
 import Login from "./Login/Login";
@@ -10,6 +11,7 @@ let loginTimer;
 const Authentication = (props) => {
   const [expanded, setExpanded] = useState(false);
   const [signingUp, setSigningUp] = useState(true);
+  const [reset, setReset] = useState(false);
 
   const toggleIsSigningUp = () => {
     clearTimeout(loginTimer);
@@ -17,6 +19,17 @@ const Authentication = (props) => {
       setSigningUp((prevState) => !prevState);
     }, 1000);
     handleExpanded();
+  };
+
+  // OPEN RESET MODAL
+  const resetPasswordHandler = (e) => {
+    e.preventDefault();
+    setReset(true);
+  };
+
+  // CLOSE RESET MODAL
+  const handleCloseModal = () => {
+    setReset(false);
   };
 
   const handleExpanded = () => {
@@ -40,8 +53,8 @@ const Authentication = (props) => {
 
             {!signingUp ? (
               <p className={typography.primary__headingsub}>
-                Dont have an account?{" "}
-                <span onClick={toggleIsSigningUp}>Create Account</span>
+                Dont remember your password?{" "}
+                <span onClick={resetPasswordHandler}>Reset</span>
               </p>
             ) : (
               <p className={typography.primary__headingsub}>
@@ -53,6 +66,7 @@ const Authentication = (props) => {
         </div>
         {signingUp && <Signup toggleIsSigningUp={toggleIsSigningUp}></Signup>}
         {!signingUp && <Login toggleIsSigningUp={toggleIsSigningUp} />}
+        {reset && <ResetModal onClose={handleCloseModal} />}
       </div>
     </div>
   );
