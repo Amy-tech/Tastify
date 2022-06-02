@@ -32,7 +32,6 @@ const RecipeForm = () => {
   const [holdsAmount, setHoldsAmount] = useState([]);
   const [holdsIngredient, setHoldsIngredient] = useState([]);
   const [holdsMeasurement, setHoldsMeasurement] = useState([]);
-  // const [ingredientList, setIngredientList] = useState([]);
   const [measurementList, setMeasurementList] = useState([]);
 
   const amountRef = useRef(null);

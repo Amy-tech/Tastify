@@ -52,8 +52,6 @@ const Login = (props) => {
           return res.json().then((data) => {
             setLoginError(true);
             setErrMessage(accessErrMessage);
-            // if email address is already valid this error also shows, I need to fix this.
-            // if password is incorrect altogether this also shows, perhaps change the error to a more ganeric one
           });
         }
       })

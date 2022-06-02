@@ -1,23 +1,40 @@
-import React, { useState } from "react";
+import React, { useContext, createContext, useState } from "react";
+import { auth } from "../utils/init-firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 
-const AuthContext = React.createContext({
+const AuthContext = createContext({
   token: "",
   displayName: "",
+  currentUser: null,
   isLoggedIn: false,
+  forgotPasword: () => Promise,
   login: (token, displayName) => {},
   logout: () => {},
 });
 
+export const useAuth = () => useContext(AuthContext);
+
 export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
   const [displayName, setDisplayName] = useState();
+  const [currentUser, setCurrentUser] = useState(null);
 
   const userIsLoggedIn = !!token;
 
+  // LOGIN HANDLER FUNCTION
   const userLoginHandler = (token, displayName) => {
     setToken(token);
     setDisplayName(displayName);
   };
+
+  // FORGOT PASSWORD HANDLER FUNCTION
+  const forgotPassword = (email) => {
+    return sendPasswordResetEmail(auth, email, {
+      url: "http://localhost:3000/login",
+    });
+  };
+
+  // LOGOUT HANDLER FUNCTION
   const userLogoutHandler = () => {
     setToken(null);
   };
@@ -25,9 +42,11 @@ export const AuthContextProvider = (props) => {
   const contextValue = {
     token: token,
     displayName: displayName,
+    currentUser: currentUser,
     isLoggedIn: userIsLoggedIn,
     login: userLoginHandler,
     logout: userLogoutHandler,
+    forgotPasword: forgotPassword,
   };
 
   return (
