@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import defaultPlaceholder from "../../images/placeholder.jpg";
 import typography from "../../Components/Global Components/Global Sass/Typography.module.scss";
 import button from "../../Components/Global Components/Buttons/Button.module.scss";
@@ -6,10 +7,13 @@ import classes from "./UserProfile.module.scss";
 import { ImPencil2 } from "react-icons/im";
 
 const UserProfile = () => {
+  // STATE
   const [profileAvitar, setProfileAvitar] = useState(defaultPlaceholder);
 
-  // Avitar Edit Handler
+  const authData = useSelector((state) => state.auth);
+  console.log(authData); // this works
 
+  // PROFILE PICTURE HANDLER
   const avitarEditHandler = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -51,11 +55,10 @@ const UserProfile = () => {
           >
             User Name :
           </p>
-          {/* REMEMBER this is hard coded until I retrieve userName from sign up */}
           <p
             className={`${typography.paragraph} ${classes.profile__heading_userName}`}
           >
-            Cheeken
+            {authData.user.displayName}
           </p>
         </div>
 

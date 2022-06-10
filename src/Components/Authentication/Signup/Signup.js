@@ -1,12 +1,14 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import classes from "./Signup.module.scss";
 import ErrorModal from "./ErrorModal";
-import AuthContext from "../../../Store/auth-context";
+// import AuthContext from "../../../Store/auth-context";
 import button from "../../Global Components/Buttons/Button.module.scss";
+import { authActions } from "../../../Store/store";
 
 const Signup = (props) => {
-  const authCtx = useContext(AuthContext);
-
   // STATE
   const [signupError, setSignupError] = useState();
   const [errorMsg, setErrorMsg] = useState();
@@ -18,6 +20,9 @@ const Signup = (props) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const passwordConfirmInputRef = useRef();
+
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const signupHandler = (e) => {
     e.preventDefault();
@@ -44,11 +49,24 @@ const Signup = (props) => {
         }
       ).then((res) => {
         if (res.ok) {
-          authCtx.login(res.displayName);
+          return res.json().then((data) => {
+            dispatch(
+              authActions.loginUser({
+                isLoggedIn: true,
+                displayName: data.displayName,
+                email: data.email,
+                idToken: data.idToken,
+                kind: data.kind,
+                registered: data.registered,
+              })
+            );
+            return history.replace("/userprofile");
+          });
         } else {
           return res.json().then((data) => {
             setSignupError(true);
             setErrorMsg(shortErrorMsg);
+            //REMEMBER
             // if email address is already valid this error also shows, I need to fix this.
             // if password is incorrect altogether this also shows, perhaps change the error to a more ganeric one
           });

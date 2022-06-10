@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 //  IMPORTING PAGES
 import Homepage from "./Pages/HomePage/Homepage";
@@ -14,8 +14,8 @@ import UserProfile from "./Pages/ProfilePage/UserProfile";
 import classes from "./Components/Global Components/Global Sass/Base.module.scss";
 
 function App({ dispatch, favRecipe }) {
-  console.log(dispatch);
-  console.log(favRecipe);
+  // console.log(dispatch);
+  // console.log(favRecipe); // the result shows 0
   return (
     <Fragment className={classes.body}>
       <Route exact path="/" component={Homepage}></Route>
@@ -29,10 +29,11 @@ function App({ dispatch, favRecipe }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    favRecipe: state.recipe,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     favRecipe: state.recipe,
+//   };
+// };
 
-export default connect(mapStateToProps)(App);
+// export default connect(mapStateToProps)(App);
+export default App;
