@@ -1,20 +1,14 @@
+import { configureStore } from "@reduxjs/toolkit";
+
+// importing slices
+import authSlice from "./Slices/authSlice";
+export const authActions = authSlice.actions;
+
 // REDUX STORE
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer,
+  },
+});
 
-const initialState = {
-  recipe: 0,
-};
-
-const favRecipeData = (state = initialState, action) => {
-  switch (action.type) {
-    case "add_favorite_recipe":
-      return {
-        recipe: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-export default createStore(favRecipeData, applyMiddleware(thunk));
+export default store;

@@ -1,59 +1,61 @@
-import React, { useContext, createContext, useState } from "react";
-import { auth } from "../utils/init-firebase";
-import { sendPasswordResetEmail } from "firebase/auth";
+// import React, { useContext, createContext, useState } from "react";
 
-const AuthContext = createContext({
-  token: "",
-  displayName: "",
-  currentUser: null,
-  isLoggedIn: false,
-  forgotPasword: () => Promise,
-  login: (token, displayName) => {},
-  logout: () => {},
-});
+// REMEMBER WE IMPORTED AUTH FOR FORGOT PASSWORD
+// import { auth } from "../utils/init-firebase";
+// import { sendPasswordResetEmail } from "firebase/auth";
 
-export const useAuth = () => useContext(AuthContext);
+// const AuthContext = createContext({
+//   token: "",
+//   displayName: "",
+//   currentUser: null,
+//   isLoggedIn: false,
+//   forgotPasword: () => Promise,
+//   login: (token, displayName) => {},
+//   logout: () => {},
+// });
 
-export const AuthContextProvider = (props) => {
-  const [token, setToken] = useState(null);
-  const [displayName, setDisplayName] = useState();
-  const [currentUser, setCurrentUser] = useState(null);
+// export const useAuth = () => useContext(AuthContext);
 
-  const userIsLoggedIn = !!token;
+// export const AuthContextProvider = (props) => {
+//   const [token, setToken] = useState(null);
+//   const [displayName, setDisplayName] = useState();
+//   const [currentUser, setCurrentUser] = useState(null);
 
-  // LOGIN HANDLER FUNCTION
-  const userLoginHandler = (token, displayName) => {
-    setToken(token);
-    setDisplayName(displayName);
-  };
+//   const userIsLoggedIn = !!token;
 
-  // FORGOT PASSWORD HANDLER FUNCTION
-  const forgotPassword = (email) => {
-    return sendPasswordResetEmail(auth, email, {
-      url: "http://localhost:3000/login",
-    });
-  };
+//   // LOGIN HANDLER FUNCTION
+//   const userLoginHandler = (token, displayName) => {
+//     setToken(token);
+//     setDisplayName(displayName);
+//   };
 
-  // LOGOUT HANDLER FUNCTION
-  const userLogoutHandler = () => {
-    setToken(null);
-  };
+//   // FORGOT PASSWORD HANDLER FUNCTION
+//   const forgotPassword = (email) => {
+//     return sendPasswordResetEmail(auth, email, {
+//       url: "http://localhost:3000/login",
+//     });
+//   };
 
-  const contextValue = {
-    token: token,
-    displayName: displayName,
-    currentUser: currentUser,
-    isLoggedIn: userIsLoggedIn,
-    login: userLoginHandler,
-    logout: userLogoutHandler,
-    forgotPasword: forgotPassword,
-  };
+//   // LOGOUT HANDLER FUNCTION
+//   const userLogoutHandler = () => {
+//     setToken(null);
+//   };
 
-  return (
-    <AuthContext.Provider value={contextValue}>
-      {props.children}
-    </AuthContext.Provider>
-  );
-};
+//   const contextValue = {
+//     token: token,
+//     displayName: displayName,
+//     currentUser: currentUser,
+//     isLoggedIn: userIsLoggedIn,
+//     login: userLoginHandler,
+//     logout: userLogoutHandler,
+//     forgotPasword: forgotPassword,
+//   };
 
-export default AuthContext;
+//   return (
+//     <AuthContext.Provider value={contextValue}>
+//       {props.children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export default AuthContext;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addRecipeAction } from "../../Store/action.js";
+// import { useDispatch } from "react-redux";
+// import { addRecipeAction } from "../../Store/action.js";
 
 import { FaLeaf, FaRegHeart, FaHeart } from "react-icons/fa";
 import { GoFlame } from "react-icons/go";
@@ -14,7 +14,7 @@ import classes from "./RecipeItem.module.scss";
 
 const RecipeItem = (props) => {
   const recipeData = { ...props };
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // TYPE VALUE
   const getValue = recipeData.type;
@@ -68,10 +68,11 @@ const RecipeItem = (props) => {
   const favoriteBtnHandler = (e, index) => {
     e.preventDefault();
     setIsLiked(!isLiked);
-    console.log(recipeData); // Normal props --> this fetches only the recipe that was clicked on
+
     if (isLiked === false) {
       console.log("the recipe you clicked on is now favortited");
-      dispatch(addRecipeAction()); // Redux Actions --> this fetches the whole array of recipes
+      console.log(recipeData); // Normal props --> this fetches only the recipe that was clicked on === THIS IS WHAT I WANT
+      //dispatch(addRecipeAction()); // Redux Actions --> type error (0, _store_action_js_webpack_imported_module_2_.addrecipeAction) is not a function - RecipeItem.js line 74
     } else if (isLiked === true) {
       console.log("there are no recipes in favorite");
     }

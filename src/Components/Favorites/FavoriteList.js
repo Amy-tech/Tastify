@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import classes from "./FavoriteList.module.scss";
 import CardSmall from "../Global Components/Card/CardSmall";
 
@@ -11,8 +11,8 @@ import { GoFlame } from "react-icons/go";
 
 const FavoriteList = (props) => {
   // FETCHING STATE
-  const recipe = useSelector((state) => state.recipe);
-  console.log(recipe);
+  // const recipe = useSelector((state) => state.recipe);
+  // console.log(recipe);
 
   useEffect(() => {
     fetch(

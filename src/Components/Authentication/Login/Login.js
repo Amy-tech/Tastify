@@ -1,11 +1,13 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+
 import ErrorModal from "../Signup/ErrorModal";
-import AuthContext from "../../../Store/auth-context";
 import classes from "./Login.module.scss";
 
 import button from "../../Global Components/Buttons/Button.module.scss";
+import { authActions } from "../../../Store/store";
 
 const Login = (props) => {
   // STATE
@@ -18,7 +20,7 @@ const Login = (props) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const authCtx = useContext(AuthContext);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const loginHandler = (e) => {
@@ -29,7 +31,7 @@ const Login = (props) => {
     // TESTING PURPOSES ONLY //
     console.log(enteredEmail, enteredPassword);
 
-    //LOGIN LOGIC
+    // LOGIN LOGIC
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBs7w0Fvv7DvUQJZF9jQLoP_tNYc9YbUOM",
       {
@@ -45,7 +47,6 @@ const Login = (props) => {
     )
       .then((res) => {
         setIsLoggedin(false);
-
         if (res.ok) {
           return res.json();
         } else {
@@ -56,8 +57,20 @@ const Login = (props) => {
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken);
-        history.replace("/recipefeed");
+        dispatch(
+          authActions.loginUser({
+            isLoggedIn: true,
+            displayName: data.displayName,
+            email: data.email,
+            idToken: data.idToken,
+            kind: data.kind,
+            registered: data.registered,
+          })
+        );
+
+        if (data.idToken) {
+          return history.replace("/recipefeed");
+        }
       })
       .catch((err) => {
         setIsLoggedin(false);

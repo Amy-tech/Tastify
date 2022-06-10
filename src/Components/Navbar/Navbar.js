@@ -1,8 +1,25 @@
 //IMPORTING RELEVANT COMPONENTS
 import React from "react";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../Store/store";
 import classes from "./Navbar.module.scss";
 
 const Navbar = () => {
+  // when the logout btn is clicked to change isloggedin state to false
+  const dispatch = useDispatch();
+
+  const logoutHandler = (e) => {
+    e.preventDefault();
+    console.log("the logout btn was clicked");
+    dispatch(
+      authActions.loginUser({
+        isLoggedIn: false,
+      })
+    );
+    // result = undifined
+    console.log(authActions.loginUser.isLoggedIn);
+  };
+
   return (
     <div className={classes.navigation}>
       {/* CHECKBOX */}
@@ -39,7 +56,11 @@ const Navbar = () => {
             </a>
           </li>
           <li className={classes.navigation__item}>
-            <a href="/" className={classes.navigation__link}>
+            <a
+              href="/"
+              className={classes.navigation__link}
+              // onClick={logoutHandler}
+            >
               <span>04</span> Logout
             </a>
           </li>
