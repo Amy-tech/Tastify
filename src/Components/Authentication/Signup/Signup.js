@@ -53,11 +53,7 @@ const Signup = (props) => {
             dispatch(
               authActions.loginUser({
                 isLoggedIn: true,
-                displayName: data.displayName,
-                email: data.email,
-                idToken: data.idToken,
-                kind: data.kind,
-                registered: data.registered,
+                userData: data,
               })
             );
             return history.replace("/userprofile");

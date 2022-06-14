@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import typography from "../Global Components/Global Sass/Typography.module.scss";
 import button from "../Global Components/Buttons/Button.module.scss";
 import classes from "./CreateRecipe.module.scss";
@@ -10,12 +10,14 @@ const CreateRecipe = () => {
     <div className={classes.createform}>
       {/* BACK BUTTON */}
       <div className={classes.createform__nevermind}>
-        <Link
-          to={{ pathname: "/RecipeFeed" }}
-          className={`${button.btn} ${button.btn__primary} ${classes.modal__modalBody_btn}`}
-        >
-          nevermind
-        </Link>
+        <nav>
+          <NavLink
+            to={"/RecipeFeed"}
+            className={`${button.btn} ${button.btn__primary} ${classes.modal__modalBody_btn}`}
+          >
+            nevermind
+          </NavLink>
+        </nav>
         {/* HEADER */}
       </div>
       <div className={classes.createform__heading}>
