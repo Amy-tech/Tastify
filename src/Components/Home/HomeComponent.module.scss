@@ -73,15 +73,15 @@
     flex-shrink: 0;
   }
 }
-
-@keyframes Home-slider-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+// NOTE --> IM NOT SURE IF I WANT SPIN
+// @keyframes Home-slider-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
 
 // SPLASH
 .splash {

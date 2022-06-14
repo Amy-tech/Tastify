@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import defaultPlaceholder from "../../images/placeholder.jpg";
 import typography from "../../Components/Global Components/Global Sass/Typography.module.scss";
@@ -67,6 +68,15 @@ const UserProfile = () => {
         >
           Change Password
         </button>
+        {/* THIS IS JUST TEMPORARY */}
+        <nav>
+          <NavLink
+            to={"/recipefeed"}
+            className={`${button.btn__secondary} ${button.btn} ${classes.profile__heading_changePassword}`}
+          >
+            look for recipes
+          </NavLink>
+        </nav>
       </header>
       <body className={classes.profile__body}>
         <div className={classes.profile__empty}>
@@ -76,12 +86,14 @@ const UserProfile = () => {
             To add a recipe to your profile, fill out and submit the recipe
             form.
           </p>
-          <a
-            href="/createrecipe"
-            className={`${button.btn__primary} ${button.btn}`}
-          >
-            Create new recipe
-          </a>
+          <nav>
+            <NavLink
+              to={"/createrecipe"}
+              className={`${button.btn__primary} ${button.btn}`}
+            >
+              Create new recipe
+            </NavLink>
+          </nav>
         </div>
       </body>
     </div>

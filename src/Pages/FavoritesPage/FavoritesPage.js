@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import classes from "./FavoritesPage.module.scss";
 import typography from "../../Components/Global Components/Global Sass/Typography.module.scss";
@@ -44,12 +45,14 @@ const FavoritesPage = () => {
             <br />
             To add a recipe to Favorites press the (heart) on the recipe card.
           </p>
-          <a
-            href="/recipefeed"
-            className={`${button.btn__primary} ${button.btn}`}
-          >
-            Go find favorites
-          </a>
+          <nav>
+            <NavLink
+              to={"/recipefeed"}
+              className={`${button.btn__primary} ${button.btn}`}
+            >
+              Go find favorites
+            </NavLink>
+          </nav>
         </div>
       </main>
     </div>

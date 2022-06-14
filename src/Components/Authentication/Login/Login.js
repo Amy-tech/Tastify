@@ -23,59 +23,47 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    // TESTING PURPOSES ONLY //
-    console.log(enteredEmail, enteredPassword);
-
     // LOGIN LOGIC
-    fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBs7w0Fvv7DvUQJZF9jQLoP_tNYc9YbUOM",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res) => {
-        setIsLoggedin(false);
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            setLoginError(true);
-            setErrMessage(accessErrMessage);
-          });
+    try {
+      const response = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBs7w0Fvv7DvUQJZF9jQLoP_tNYc9YbUOM",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: enteredEmail,
+            password: enteredPassword,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      .then((data) => {
+      );
+
+      if (response.ok) {
+        const data = await response.json();
         dispatch(
           authActions.loginUser({
             isLoggedIn: true,
-            displayName: data.displayName,
-            email: data.email,
-            idToken: data.idToken,
-            kind: data.kind,
-            registered: data.registered,
+            userData: data,
           })
         );
-
-        if (data.idToken) {
-          return history.replace("/recipefeed");
-        }
-      })
-      .catch((err) => {
-        setIsLoggedin(false);
-        setErrMessage(accessErrMessage);
-      });
+        return history.replace("/recipefeed");
+      } else {
+        return response.json().then((data) => {
+          setLoginError(true);
+          setErrMessage(accessErrMessage);
+        });
+      }
+    } catch (error) {
+      //NOTE --> Errors dont work here but work in if else statement. what is the use of catch then?
+      // setIsLoggedin(false);
+      // setErrMessage(accessErrMessage);
+    }
   };
 
   // CLOSE ERROR MODAL
