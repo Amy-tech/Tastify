@@ -13,6 +13,7 @@ const authSlice = createSlice({
       state.user = {
         displayName: action.payload.userData.displayName,
         email: action.payload.userData.email,
+        // photoURL: null,
         idToken: action.payload.userData.idToken,
         kind: action.payload.userData.kind,
         registered: action.payload.userData.registered,
