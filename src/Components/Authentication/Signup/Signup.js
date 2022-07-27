@@ -2,11 +2,13 @@ import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import { doc, setDoc } from "firebase/firestore";
+
 import classes from "./Signup.module.scss";
 import ErrorModal from "./ErrorModal";
-// import AuthContext from "../../../Store/auth-context";
 import button from "../../Global Components/Buttons/Button.module.scss";
 import { authActions } from "../../../Store/store";
+import { firestore } from "../../../utils/init-firebase";
 
 const Signup = (props) => {
   // STATE
@@ -26,6 +28,8 @@ const Signup = (props) => {
 
   const signupHandler = (e) => {
     e.preventDefault();
+
+    // GET USER INFO
     const enteredUsername = usernameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
@@ -50,21 +54,25 @@ const Signup = (props) => {
       ).then((res) => {
         if (res.ok) {
           return res.json().then((data) => {
+            // if successfull then dispatch redux state
             dispatch(
               authActions.loginUser({
                 isLoggedIn: true,
                 userData: data,
               })
             );
+
+            // if successfull then call newUser function
+            console.log("==> reach this spot");
+            newUser(data);
+
+            // Redirect user to profile
             return history.replace("/userprofile");
           });
         } else {
-          return res.json().then((data) => {
+          return res.json().then(() => {
             setSignupError(true);
             setErrorMsg(shortErrorMsg);
-            //REMEMBER
-            // if email address is already valid this error also shows, I need to fix this.
-            // if password is incorrect altogether this also shows, perhaps change the error to a more ganeric one
           });
         }
       });
@@ -72,6 +80,18 @@ const Signup = (props) => {
       setSignupError(true);
       setErrorMsg(matchedErrorMsg);
     }
+  };
+
+  // ADDING NEW USER TO FIRESTORE LOGIC
+  const newUser = (data) => {
+    setDoc(doc(firestore, "usersList", data.idToken), {
+      displayName: data.displayName,
+      email: data.email,
+      uid: data.idToken,
+      profileImage: "",
+      favoritesList: "",
+      personalRecipes: "",
+    });
   };
 
   // CLOSE ERROR MODAL
@@ -86,6 +106,7 @@ const Signup = (props) => {
         autoComplete="off"
         onSubmit={signupHandler}
       >
+        {/* USER NAME */}
         <div className={classes.Signup__group}>
           <input
             type="text"
@@ -99,6 +120,7 @@ const Signup = (props) => {
           </label>
         </div>
 
+        {/* EMAIL */}
         <div className={classes.Signup__group}>
           <input
             type="email"
@@ -112,6 +134,7 @@ const Signup = (props) => {
           </label>
         </div>
 
+        {/* PASSWORD */}
         <div className={classes.Signup__group}>
           <input
             type="password"
@@ -125,6 +148,7 @@ const Signup = (props) => {
           </label>
         </div>
 
+        {/* CONFIRM PASSWORD */}
         <div className={classes.Signup__group}>
           <input
             type="password"
@@ -138,16 +162,20 @@ const Signup = (props) => {
           </label>
         </div>
 
+        {/* SUBMIT BTN */}
         <button
           className={`${button.btn} ${button.btn__primary} ${classes.Signup__Button}`}
         >
           Sign Up
         </button>
+
+        {/* TOGGLE BTN */}
         <p>
           Already have an account?{" "}
           <span onClick={props.toggleIsSigningUp}>Login</span>
         </p>
       </form>
+
       {/* ERROR MODAL */}
       {signupError && (
         <ErrorModal onClose={handleCloseModal} passingError={errorMsg} />

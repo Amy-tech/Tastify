@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../Store/auth-context";
+// import { useAuth } from "../../../Store/auth-context";
 import { ImCross } from "react-icons/im";
 import typography from "../../Global Components/Global Sass/Typography.module.scss";
 import classes from "./ResetModal.module.scss";
@@ -7,7 +7,7 @@ import classes from "./ResetModal.module.scss";
 const ResetModal = (props) => {
   // STATE (in forgotPasword page set state that ties with the input value and onchange event)
   const [email, setEmail] = useState("");
-  const { forgotPassword } = useAuth;
+  // const { forgotPassword } = useAuth;
 
   const closeModalHandler = (e) => {
     e.preventDefault();
@@ -18,13 +18,13 @@ const ResetModal = (props) => {
     console.log("the submit btn for password reset was clicked");
     //logic goes here
     // FIX -> ERROR forgotPassword is not a function
-    forgotPassword(email)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((e) => {
-        console.log(e.message);
-      });
+    // forgotPassword(email)
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e.message);
+    //   });
   };
 
   return (

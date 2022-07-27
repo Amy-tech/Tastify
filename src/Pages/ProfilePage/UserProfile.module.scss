@@ -6,16 +6,17 @@
   &__heading {
     background-color: #f5b202;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+
+    // EDIT PROFILE PICTURE
     &_edit {
       position: absolute;
       top: 10rem;
       left: 30rem;
     }
-
     &_editInput[type="file"] {
       display: none;
     }
-
     &_editLabel {
       cursor: pointer;
       width: 5rem;
@@ -28,7 +29,6 @@
       align-items: center;
       font-size: 2rem;
     }
-
     &_userPic {
       width: 25rem;
       height: 25rem;
@@ -44,6 +44,13 @@
       object-fit: cover;
       border-radius: 50%;
     }
+    &_uploading {
+      position: absolute;
+      top: 25rem;
+      left: 17rem;
+    }
+
+    // USER DETAILS
     &_userDetails {
       display: flex;
       justify-content: center;
@@ -57,9 +64,22 @@
       padding-left: 2rem;
       font-size: 1.8rem;
     }
-    &_changePassword {
-      margin-top: 5rem;
-      margin-left: 25%;
+    // NAVIGATION BUTTONS
+
+    &_btnContainer {
+      width: 100%;
+      display: grid;
+      grid-template-rows: 150% repeat(2, 1fr);
+      justify-items: center; //left & right
+      align-items: center; //top & botom
+      &_btn1 {
+        align-self: flex-start;
+      }
+      &_btn2 {
+      }
+      &_btn3 {
+        margin-top: 1rem;
+      }
     }
   }
   &__body {
