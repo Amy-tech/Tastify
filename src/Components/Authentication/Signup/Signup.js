@@ -1,7 +1,13 @@
+// I WILL NEED TO REDO SIGNUP & LOGIN
 import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 import classes from "./Signup.module.scss";
@@ -14,11 +20,12 @@ const Signup = (props) => {
   // STATE
   const [signupError, setSignupError] = useState();
   const [errorMsg, setErrorMsg] = useState();
-  const shortErrorMsg = "Make sure your password is at least 6 characters long";
+
+  // ERROR MESSAGES
   const matchedErrorMsg = "Your passwords dont match";
 
   // REFS
-  const usernameInputRef = useRef();
+  const displayNameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const passwordConfirmInputRef = useRef();
@@ -30,52 +37,47 @@ const Signup = (props) => {
     e.preventDefault();
 
     // GET USER INFO
-    const enteredUsername = usernameInputRef.current.value;
+    const enteredDisplayName = displayNameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     const enteredPasswordConfirm = passwordConfirmInputRef.current.value;
 
     // ADDED VALIDATION
     if (enteredPassword === enteredPasswordConfirm) {
-      fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBs7w0Fvv7DvUQJZF9jQLoP_tNYc9YbUOM",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            displayName: enteredUsername,
-            email: enteredEmail,
-            password: enteredPassword,
-            returnSecureToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((res) => {
-        if (res.ok) {
-          return res.json().then((data) => {
-            // if successfull then dispatch redux state
-            dispatch(
-              authActions.loginUser({
-                isLoggedIn: true,
-                userData: data,
-              })
-            );
+      const auth = getAuth();
 
-            // if successfull then call newUser function
-            console.log("==> reach this spot");
-            newUser(data);
+      createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+        .then((userCredential) => {
+          // sign in with firebaseAuth
+          const user = userCredential.user;
 
-            // Redirect user to profile
-            return history.replace("/userprofile");
-          });
-        } else {
-          return res.json().then(() => {
-            setSignupError(true);
-            setErrorMsg(shortErrorMsg);
-          });
-        }
-      });
+          // adding displayName to user credentials
+          updateProfile(auth.currentUser, {
+            displayName: enteredDisplayName,
+          })
+            .then(() => {
+              // if successful then dispatch redux state
+              dispatch(
+                authActions.loginUser({
+                  isLoggedIn: true,
+                  userData: user,
+                })
+              );
+
+              // if successfull then call newUser function
+              newUser(user);
+
+              // redirect user to profile
+              return history.replace("/userprofile");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          setSignupError(true);
+          setErrorMsg(err.message);
+        });
     } else {
       setSignupError(true);
       setErrorMsg(matchedErrorMsg);
@@ -83,11 +85,12 @@ const Signup = (props) => {
   };
 
   // ADDING NEW USER TO FIRESTORE LOGIC
-  const newUser = (data) => {
-    setDoc(doc(firestore, "usersList", data.idToken), {
-      displayName: data.displayName,
-      email: data.email,
-      uid: data.idToken,
+  const newUser = (user) => {
+    console.log(user);
+    setDoc(doc(firestore, "usersList", user.uid), {
+      displayName: user.displayName,
+      email: user.email,
+      uid: user.uid,
       profileImage: "",
       favoritesList: "",
       personalRecipes: "",
@@ -113,7 +116,8 @@ const Signup = (props) => {
             placeholder="User Name"
             id="name"
             className={classes.Signup__input}
-            ref={usernameInputRef}
+            ref={displayNameInputRef}
+            required
           ></input>
           <label for="name" className={classes.Signup__label}>
             User Name
@@ -128,6 +132,7 @@ const Signup = (props) => {
             id="email"
             className={classes.Signup__input}
             ref={emailInputRef}
+            required
           ></input>
           <label for="email" className={classes.Signup__label}>
             Email
@@ -142,6 +147,7 @@ const Signup = (props) => {
             id="password"
             className={classes.Signup__input}
             ref={passwordInputRef}
+            required
           ></input>
           <label for="password" className={classes.Signup__label}>
             Password
@@ -156,6 +162,7 @@ const Signup = (props) => {
             id="confirmPassword"
             className={classes.Signup__input}
             ref={passwordConfirmInputRef}
+            required
           ></input>
           <label for="confirmPassword" className={classes.Signup__label}>
             Confirm Password
