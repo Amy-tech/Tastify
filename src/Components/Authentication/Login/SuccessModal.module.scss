@@ -1,0 +1,15 @@
+// SUCCESSFUL RESET PASSWORD MODAL
+.modal {
+  &__modalBody {
+    // MESSAGE
+    &_message {
+      justify-self: center;
+      align-self: end;
+      padding: 15rem 5rem 5rem 5rem;
+    }
+    &_messageText_success {
+      padding-left: 5rem;
+      border-left: 0.5rem solid rgb(107, 142, 35);
+    }
+  }
+}

@@ -1,4 +1,4 @@
-// SIGNUP ERROR MODAL
+// SIGNUP & LOGIN ERROR MODAL
 .modal {
   width: 100%;
   height: 100%;
@@ -19,6 +19,7 @@
   }
 
   &__modalBody {
+    // MESSAGE
     &_message {
       justify-self: center;
       align-self: end;
@@ -29,6 +30,7 @@
       border-left: 0.5rem solid #f84942;
     }
 
+    // CLOSE MODAL BTN
     &_btn {
       width: 6rem;
       height: 4rem;
