@@ -91,7 +91,7 @@ const Signup = (props) => {
       displayName: user.displayName,
       email: user.email,
       uid: user.uid,
-      profileImage: "",
+      photoURL: "",
       favoritesList: "",
       personalRecipes: "",
     });
