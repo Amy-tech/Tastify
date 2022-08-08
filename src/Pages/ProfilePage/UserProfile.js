@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDocs, collection } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 
@@ -11,11 +11,11 @@ import button from "../../Components/Global Components/Buttons/Button.module.scs
 import classes from "./UserProfile.module.scss";
 import { ImPencil2 } from "react-icons/im";
 
-import { firestore } from "../../utils/init-firebase";
-import { auth } from "../../utils/init-firebase";
-import { storage } from "../../utils/init-firebase";
+import { auth, firestore, storage } from "../../utils/init-firebase";
 
-import NameChangeForm from "./NameChangeForm.js";
+import NameChangeForm from "../../Components/UserProfile/NameChangeForm.js";
+import PersonalRecipeList from "../../Components/UserProfile/PersonalRecipeList.js";
+import Scroll from "../../Components/Global Components/Scroll/Scroll.js";
 
 const UserProfile = () => {
   // STATE
@@ -23,13 +23,12 @@ const UserProfile = () => {
   const [showProgressCounter, setShowProgressCounter] = useState(null);
   const [imageProgress, setImageProgress] = useState(false);
   const [newName, setNewName] = useState(false);
-
-  //REFS
-  // const updatedDisplayNameInputRef = useRef();
+  const [personalRecipeList, setPersonalRecipeList] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
 
   // FETCHING CURRENT USER INFORMATION
   const currentUser = auth.currentUser;
-  // console.log(currentUser); //this works
+  console.log(currentUser); //this works
 
   // PROFILE IMAGE HANDLER
   const imageEditHandler = (e) => {
@@ -85,14 +84,17 @@ const UserProfile = () => {
   // FETCHING CURRENT IMAGE
   const photoRef = ref(storage, `/${currentUser.uid}/${currentUser.photoURL}`);
 
-  // USE EFFECT
+  // USE EFFECT - FETCHING CURRENT IMAGE STATE
   useEffect(() => {
     const fetchingImage = async () => {
       const image = await getDownloadURL(photoRef);
       setProfileImage(image);
     };
-
+    // FETCHING CURRENT IMAGE STATE
     fetchingImage();
+
+    // // TOGGLE USER PROFILE BODY COMPONENT
+    // getUserInfo();
   }, [photoRef]);
 
   // CHANGING USER NAME
@@ -105,9 +107,43 @@ const UserProfile = () => {
     }
   };
 
+  // USE EFFECT - TOGGLE USER PROFILE BODY COMPONENT
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  // FETHING USER UPLOADS
+  const getUserInfo = () => {
+    const userCollectionRef = collection(
+      firestore,
+      `recipeList/${currentUser.uid}/usersRecipeList`
+    );
+    getDocs(userCollectionRef)
+      .then((res) => {
+        console.log(res.docs);
+
+        const userSnapshot = res.docs.map((doc) => ({
+          data: doc.data(),
+          id: doc.id,
+        }));
+        setUserInfo(userSnapshot);
+
+        // CONDITIONING RECIPE TOGGLE
+        const recipeArrLength = userSnapshot.length;
+        if (recipeArrLength === 0) {
+          setPersonalRecipeList(false);
+          console.log("this user has no recipes");
+        } else {
+          setPersonalRecipeList(true);
+          console.log("this user has recipes");
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
+
   return (
     <div className={classes.profile}>
-      <header className={classes.profile__heading}>
+      <div header className={classes.profile__heading}>
         <div className={classes.profile__heading_edit}>
           {/* EDIT PROFILE IMAGE BTN */}
           <input
@@ -139,7 +175,7 @@ const UserProfile = () => {
           </h1>
         )}
 
-        {/* REMEMBER CONTINUE ON THIS SPOT */}
+        {/* TOGGLE CHANGE USER NAME INPUT AND DISPLAY NAME */}
         {newName ? (
           <NameChangeForm />
         ) : (
@@ -159,7 +195,6 @@ const UserProfile = () => {
             </p>
           </div>
         )}
-        {/* TOGGLE CHANGE USER NAME INPUT */}
 
         {/* SUBHEADING - NAVIGATION BTNS */}
         <div className={classes.profile__heading_btnContainer}>
@@ -185,26 +220,35 @@ const UserProfile = () => {
             create new recipe
           </NavLink>
         </div>
-      </header>
+      </div>
 
       {/* BODY - USER RECIPE HOLDER */}
       <div className={classes.profile__body}>
-        <div className={classes.profile__empty}>
-          <p className={typography.paragraph}>
-            No Items in profile.
-            <br />
-            To add a recipe to your profile, fill out and submit the recipe
-            form.
-          </p>
-          <nav>
-            <NavLink
-              to={"/createrecipe"}
-              className={`${button.btn__primary} ${button.btn}`}
-            >
-              Create new recipe
-            </NavLink>
-          </nav>
-        </div>
+        {personalRecipeList ? (
+          <div className={classes.profile__full}>
+            <PersonalRecipeList />
+          </div>
+        ) : (
+          <div className={classes.profile__empty}>
+            <div>
+              <p className={typography.paragraph}>
+                No Items in profile.
+                <br />
+                To add a recipe to your profile, fill out and submit the recipe
+                form.
+              </p>
+              <nav>
+                <NavLink
+                  to={"/createrecipe"}
+                  className={`${button.btn__primary} ${button.btn}`}
+                >
+                  Create new recipe
+                </NavLink>
+              </nav>
+            </div>
+          </div>
+        )}
+        <Scroll showBelow={250} />
       </div>
     </div>
   );

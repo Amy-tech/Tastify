@@ -73,6 +73,12 @@
     width: 35rem;
   }
 
+  &__imageError_text {
+    text-align: center;
+    font-weight: bold;
+    color: rgb(248, 73, 66);
+  }
+
   // NAME & DESCRIPTION CSS - TYPE INPUT
   &__typeContent {
     margin-top: 6rem;

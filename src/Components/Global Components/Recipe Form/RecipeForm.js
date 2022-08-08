@@ -9,8 +9,14 @@ import { BiUpArrow } from "react-icons/bi";
 import { BiDownArrow } from "react-icons/bi";
 import { AiOutlineEnter } from "react-icons/ai";
 import { RiDeleteBin7Fill } from "react-icons/ri";
+import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../../../utils/init-firebase";
+import { firestore } from "../../../utils/init-firebase";
 
 const RecipeForm = () => {
+  const currentUser = auth.currentUser;
+  // console.log(currentUser); //this works
+
   // IMAGE STATE
   const [imagePreview, setImagePreview] = useState(null);
   const [imageError, setImageError] = useState(false);
@@ -48,7 +54,7 @@ const RecipeForm = () => {
   const methodRef = useRef(null);
 
   // USERNAME STATE
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(currentUser.displayName);
 
   // SUBMITTING STATE
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,8 +65,15 @@ const RecipeForm = () => {
   const imageChangeHandler = (e) => {
     setImageError(false);
     const selectedImage = e.target.files[0];
+    // IMAGE TYPE VALIDATION
     const imageTypes = ["image/png", "image/jpg", "image/jpeg"];
-    if (selectedImage && imageTypes.includes(selectedImage.type)) {
+    // IMAGE SIZE VALIDATION
+    const imageSizeLimit = 1048487; //  Byte, KB, MB == incrament by 1000 each time
+    if (
+      selectedImage &&
+      imageTypes.includes(selectedImage.type) &&
+      selectedImage.size <= imageSizeLimit
+    ) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -132,27 +145,16 @@ const RecipeForm = () => {
     let _holdsAmount = [...holdsAmount];
     let _holdsMeasurement = [...holdsMeasurement];
     let _holdsIngredient = [...holdsIngredient];
-    // let _ingredientList = [...ingredientList];
-
-    // console.log(_ingredientList);
 
     _measurementList.push(amount + " " + measurement + " " + ingredient);
     _holdsAmount.push(amount);
     _holdsMeasurement.push(measurement);
     _holdsIngredient.push(ingredient);
 
-    // _ingredientList.push({
-    //   amount: amount,
-    //   measurement: measurement,
-    //   ingredient: ingredient,
-    // });
-
     setMeasurementList(_measurementList);
     setHoldsAmount(_holdsAmount);
     setHoldsMeasurement(_holdsMeasurement);
     setHoldsIngredient(_holdsIngredient);
-
-    // setIngredientList(_ingredientList);
   };
 
   // MEASUREMENT BIN HANDLER
@@ -214,11 +216,6 @@ const RecipeForm = () => {
     setMethodList(_methodList);
   };
 
-  // USERNAME HANDLER
-  const usernameHandler = (e) => {
-    setUsername(e.target.value);
-  };
-
   // FORM INPUT VALUE
   const recipe = {
     image: imagePreview,
@@ -228,12 +225,6 @@ const RecipeForm = () => {
     amount: holdsAmount,
     measurement: holdsMeasurement,
     ingredient: holdsIngredient,
-    // ingredients: ingredientList,
-    // ingredients: {
-    //   amount: amount,
-    //   measurement: measurement,
-    //   ingredient: ingredient,
-    // },
     portion: portionCount,
     method: methodList,
     userName: username,
@@ -248,22 +239,46 @@ const RecipeForm = () => {
     e.preventDefault();
     const enteredRecipeNameIsValid = !isEmpty(recipe.name);
     const enteredRecipeDescriptionIsValid = !isEmpty(recipe.description);
-    const enteredUserNameIsValid = !isEmpty(recipe.userName);
+    const chosenImageIsValid = recipe.image !== null;
 
     const formIsValid =
+      chosenImageIsValid &&
       enteredRecipeNameIsValid &&
-      enteredRecipeDescriptionIsValid &&
-      enteredUserNameIsValid;
+      enteredRecipeDescriptionIsValid;
 
     if (formIsValid) {
       setIsSubmitting(true);
 
+      // POST RECIPE TO REAL TIME DATA BASE
       await fetch(
         "https://recipe-book-a37e0-default-rtdb.europe-west1.firebasedatabase.app/recipes.json",
         {
           method: "POST",
           body: JSON.stringify(recipe),
           headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      // ADDING NEW RECIPE TO FIRESTORE LOGIC
+      setDoc(
+        doc(
+          firestore,
+          "recipeList",
+          currentUser.uid,
+          "usersRecipeList",
+          recipeName
+        ),
+        {
+          image: imagePreview,
+          name: recipeName,
+          description: recipeDescription,
+          type: recipeType,
+          amount: holdsAmount,
+          measurement: holdsMeasurement,
+          ingredient: holdsIngredient,
+          portion: portionCount,
+          method: methodList,
+          userName: username,
         }
       );
 
@@ -294,6 +309,7 @@ const RecipeForm = () => {
 
           <div className={classes.createform__imageContent}>
             <input
+              // onload={onImgLoad}
               onChange={imageChangeHandler}
               className={classes.createform__imageInput}
               type="file"
@@ -312,8 +328,12 @@ const RecipeForm = () => {
             <div className={classes.createform__imageContainer}>
               <div className={classes.createform__imageError}>
                 {imageError && (
-                  <p className={typography.paragraph}>
-                    This file is not supported, try converting it to jpg or png
+                  <p
+                    className={`${typography.paragraph} ${classes.createform__imageError_text}`}
+                  >
+                    This file is not supported : <br /> try converting it to jpg
+                    or png,
+                    <br /> image size may not exceed 1 MB
                   </p>
                 )}
               </div>
@@ -474,7 +494,7 @@ const RecipeForm = () => {
                 <option value="g">g</option>
                 <option value="kg">kg</option>
                 {/* other */}
-                <option value="big">big</option>
+                <option value="large">large</option>
                 <option value="medium">medium</option>
                 <option value="small">small</option>
                 <option value="unit">unit</option>
@@ -482,6 +502,8 @@ const RecipeForm = () => {
                 <option value="can">can</option>
                 <option value="punnet">punnet</option>
                 <option value="slices">slices</option>
+                <option value="clove">clove</option>
+                <option value="pinch">pinch</option>
                 <option value="handful">handful</option>
               </select>
             </div>
@@ -671,23 +693,16 @@ const RecipeForm = () => {
             <h3
               className={`${typography.primary__headingSmall} ${classes.createform__sectionTitle}`}
             >
-              >> Enter your username
+              >> Confirm your username
             </h3>
           </div>
 
           <div className={classes.createform__content}>
-            <input
-              onChange={usernameHandler}
-              autoComplete="off"
-              className={classes.createform__input}
-              type="text"
-              placeholder="Username"
-              id="username"
-              required
-            ></input>
-            <label htmlFor="username" className={classes.createform__label}>
-              Username
-            </label>
+            <p
+              className={`${typography.primary__headingSmall} ${classes.createform__methodListHeading}`}
+            >
+              {currentUser.displayName}
+            </p>
           </div>
         </section>
 

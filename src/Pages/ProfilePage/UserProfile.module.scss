@@ -1,13 +1,16 @@
 .profile {
-  display: grid;
+  //display: grid;
   height: 100vh;
-  grid-template-columns: 25% 75%;
+  //grid-template-columns: 45% 75%;
 
   &__heading {
     background-color: #f5b202;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    position: relative;
+    position: fixed;
+    width: 25%;
+    height: 100%;
 
+    // position: relative;
     // EDIT PROFILE PICTURE
     &_edit {
       position: absolute;
@@ -83,9 +86,18 @@
     }
   }
   &__body {
+    position: absolute;
+    right: 0;
+    width: 75%;
+  }
+  &__full {
+    margin-top: 10rem;
   }
   &__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     text-align: center;
-    margin-top: 25%;
   }
 }
