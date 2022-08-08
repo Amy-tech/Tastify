@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import { FaLeaf, FaRegHeart, FaHeart } from "react-icons/fa";
 import { GoFlame } from "react-icons/go";
 
-import CardSmall from "../Global Components/Card/CardSmall.js";
-import button from "../Global Components/Buttons/Button.module.scss";
-import typography from "../Global Components/Global Sass/Typography.module.scss";
-import recipetype from "../Global Components/Global Sass/RecipeType.module.scss";
-import classes from "./RecipeItem.module.scss";
+import CardSmall from "../../Components/Global Components/Card/CardSmall.js";
+// import button from "../../Global Components/Buttons/Button.module.scss";
+import typography from "../../Components/Global Components/Global Sass/Typography.module.scss";
+import recipetype from "../../Components/Global Components/Global Sass/RecipeType.module.scss";
+import classes from "./PersonalRecipeItem.module.scss";
 
-const RecipeItem = (props) => {
+const PersonalRecipeItem = (props) => {
   const recipeData = { ...props };
 
   // TYPE VALUE
@@ -61,19 +61,19 @@ const RecipeItem = (props) => {
     }
   };
 
+  // NOTE ==> FOR PERSONAL RECIPE REPLACE FAVORITE TO EDIT OR DELETE OR BOTH
   // FAVORITE BUTTON HANDLER
-  const favoriteBtnHandler = (e, index) => {
-    e.preventDefault();
-    setIsLiked(!isLiked);
+  //   const favoriteBtnHandler = (e, index) => {
+  //     e.preventDefault();
+  //     setIsLiked(!isLiked);
 
-    if (isLiked === false) {
-      console.log("the recipe you clicked on is now favortited");
-      console.log(recipeData); // Normal props --> this fetches only the recipe that was clicked on === THIS IS WHAT I WANT
-      //dispatch(addRecipeAction()); // Redux Actions --> type error (0, _store_action_js_webpack_imported_module_2_.addrecipeAction) is not a function - RecipeItem.js line 74
-    } else if (isLiked === true) {
-      console.log("there are no recipes in favorite");
-    }
-  };
+  //     if (isLiked === false) {
+  //       console.log("the recipe you clicked on is now favortited");
+  //       //   console.log(recipeData);
+  //     } else if (isLiked === true) {
+  //       console.log("there are no recipes in favorite");
+  //     }
+  //   };
 
   return (
     <li className={classes.recipeItem}>
@@ -87,7 +87,7 @@ const RecipeItem = (props) => {
         <div className={classes.recipeItem__content}>
           {/* FAVORITE BUTTON */}
           <div className={classes.recipeItem__favorites}>
-            <div className={button.favorite}>
+            {/* <div className={button.favorite}>
               {isLiked ? (
                 <FaHeart
                   className={button.favorite__unfill}
@@ -99,7 +99,7 @@ const RecipeItem = (props) => {
                   onClick={favoriteBtnHandler}
                 />
               )}
-            </div>
+            </div> */}
           </div>
 
           {/* RECIPE TYPE */}
@@ -125,4 +125,4 @@ const RecipeItem = (props) => {
   );
 };
 
-export default RecipeItem;
+export default PersonalRecipeItem;

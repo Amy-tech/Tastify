@@ -39,6 +39,7 @@ const RecipeList = () => {
     fetchRecipe();
   }, []);
 
+  // MAPPING THROUGH RECIPES
   const recipeList = recipes.map((recipe) => (
     <RecipeItem
       key={recipe.id}

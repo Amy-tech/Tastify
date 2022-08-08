@@ -87,14 +87,27 @@ const Signup = (props) => {
   // ADDING NEW USER TO FIRESTORE LOGIC
   const newUser = (user) => {
     console.log(user);
+    // CREATING NEW USER
     setDoc(doc(firestore, "usersList", user.uid), {
       displayName: user.displayName,
       email: user.email,
       uid: user.uid,
       photoURL: "",
-      favoritesList: "",
-      personalRecipes: "",
     });
+
+    // CREATING NEW USER FAVORITES LIST
+    // setDoc(doc(firestore, "favoritesList", user.uid), {
+    //   image: "",
+    //   name: "",
+    //   description: "",
+    //   type: [],
+    //   amount: [],
+    //   measurement: [],
+    //   ingredient: [],
+    //   portion: "",
+    //   method: [],
+    //   userName: "",
+    // });
   };
 
   // CLOSE ERROR MODAL
