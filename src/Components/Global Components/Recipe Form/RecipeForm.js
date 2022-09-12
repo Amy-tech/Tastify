@@ -309,7 +309,6 @@ const RecipeForm = () => {
 
           <div className={classes.createform__imageContent}>
             <input
-              // onload={onImgLoad}
               onChange={imageChangeHandler}
               className={classes.createform__imageInput}
               type="file"
@@ -686,7 +685,14 @@ const RecipeForm = () => {
             </ol>
           </div>
         </section>
-
+        {/* RECIPE PORTION */}
+        <div className={classes.method__content_sectionHeader}>
+          <h3
+            className={`${typography.primary__headingSmall} ${classes.method__content_sectionTitle}`}
+          >
+            >> The portion of the recipe
+          </h3>
+        </div>
         {/* USERNAME */}
         <section className={classes.createform__group}>
           <div className={classes.createform__sectionHeader}>

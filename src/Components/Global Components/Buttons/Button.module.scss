@@ -54,7 +54,7 @@
   }
 }
 
-// FAVORITES BUTTON
+// RECIPE FEED - FAVORITES BUTTON
 .favorite {
   font-size: 3rem;
   color: rgb(241, 100, 123);
@@ -67,7 +67,28 @@
   }
 }
 
-// SCROLL UP BUTTON
+// USER PROFILE - MANAGE BUTTON
+.manage {
+  font-size: 2rem;
+  margin-right: 1rem;
+  color: #333;
+
+  &__bin {
+    cursor: pointer;
+    margin-right: 2rem;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  &__edit {
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+// RECIPE FEED/ PROFILE PAGE/ FAVORITES PAGE - SCROLL UP BUTTON
 .scrollUp {
   z-index: 100;
   position: fixed;
@@ -84,7 +105,7 @@
   }
 }
 
-// SEARCHBAR TAG CLOSE BUTTON
+// RECIPE FEED - SEARCHBAR TAG CLOSE BUTTON
 .closeBtn {
   padding: 0.3rem 0.4rem 0 0.4rem;
   font-size: 2rem;

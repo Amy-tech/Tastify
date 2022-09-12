@@ -9,7 +9,7 @@ import recipetype from "../Global Components/Global Sass/RecipeType.module.scss"
 import button from "../Global Components/Buttons/Button.module.scss";
 import classes from "../Recipefeed/RecipeMethod.module.scss";
 
-const RecipeMethod = () => {
+const PersonalRecipeMethod = () => {
   // FETCHING RECIPE DATA
   const location = useLocation();
   const { recipeData } = location.state;
@@ -126,7 +126,7 @@ const RecipeMethod = () => {
             <div className={classes.method__gridOne}>
               {/* RETURN BTN */}
               <Link
-                to={"/recipefeed"}
+                to={"/userprofile"}
                 className={`${button.btn} ${button.btn__primary} ${classes.method__gridOne_returnBtn}`}
               >
                 Go back
@@ -230,4 +230,4 @@ const RecipeMethod = () => {
   );
 };
 
-export default RecipeMethod;
+export default PersonalRecipeMethod;

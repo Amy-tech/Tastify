@@ -16,7 +16,6 @@ const NameChangeForm = () => {
 
   const changeDisplayNameHandler = (e) => {
     e.preventDefault();
-    console.log("the submit btn was clicked");
     // GET USER CHANGED NAME
     const updateDisplayName = updatedDisplayNameInputRef.current.value;
 
