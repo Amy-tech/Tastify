@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-import { FaLeaf, FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaLeaf } from "react-icons/fa";
+import { ImBin, ImPencil2 } from "react-icons/im";
 import { GoFlame } from "react-icons/go";
 
 import CardSmall from "../../Components/Global Components/Card/CardSmall.js";
-// import button from "../../Global Components/Buttons/Button.module.scss";
+import button from "../Global Components/Buttons/Button.module.scss";
 import typography from "../../Components/Global Components/Global Sass/Typography.module.scss";
 import recipetype from "../../Components/Global Components/Global Sass/RecipeType.module.scss";
 import classes from "./PersonalRecipeItem.module.scss";
+import EditPersonalRecipe from "./EditPersonalRecipe.js";
 
 const PersonalRecipeItem = (props) => {
   const recipeData = { ...props };
 
+  const history = useHistory();
+
   // TYPE VALUE
   const getValue = recipeData.type;
-
-  // FAVORITE BTN STATE
-  const [isLiked, setIsLiked] = useState(false);
 
   // ADD TYPE HANDLER
   const addTypeHandler = () => {
@@ -62,18 +63,18 @@ const PersonalRecipeItem = (props) => {
   };
 
   // NOTE ==> FOR PERSONAL RECIPE REPLACE FAVORITE TO EDIT OR DELETE OR BOTH
-  // FAVORITE BUTTON HANDLER
-  //   const favoriteBtnHandler = (e, index) => {
-  //     e.preventDefault();
-  //     setIsLiked(!isLiked);
+  // BIN BUTTON HANDLER
+  const binBtnHandler = (e) => {
+    e.preventDefault();
+    console.log("the bin button was clicked");
+  };
 
-  //     if (isLiked === false) {
-  //       console.log("the recipe you clicked on is now favortited");
-  //       //   console.log(recipeData);
-  //     } else if (isLiked === true) {
-  //       console.log("there are no recipes in favorite");
-  //     }
-  //   };
+  // EDIT BUTTON HANDLER
+  // const editBtnHandler = (e) => {
+  //   e.preventDefault();
+  //   console.log("the edit button was clicked");
+  //   return history.replace("/editpersonalrecipe");
+  // };
 
   return (
     <li className={classes.recipeItem}>
@@ -85,21 +86,19 @@ const PersonalRecipeItem = (props) => {
 
         {/* ROW 2> CONTENT */}
         <div className={classes.recipeItem__content}>
-          {/* FAVORITE BUTTON */}
-          <div className={classes.recipeItem__favorites}>
-            {/* <div className={button.favorite}>
-              {isLiked ? (
-                <FaHeart
-                  className={button.favorite__unfill}
-                  onClick={favoriteBtnHandler}
-                />
-              ) : (
-                <FaRegHeart
-                  className={button.favorite__fill}
-                  onClick={favoriteBtnHandler}
-                />
-              )}
-            </div> */}
+          {/* BIN / EDIT BUTTON */}
+          <div className={classes.recipeItem__manageButtons}>
+            <div className={button.manage}>
+              {/* BIN BTN */}
+              <ImBin className={button.manage__bin} onClick={binBtnHandler} />
+              {/* EDIT BTN */}
+              <Link
+                to={{ pathname: "/editpersonalrecipe", state: { recipeData } }}
+                className={classes.link}
+              >
+                <ImPencil2 className={button.manage__edit} />
+              </Link>
+            </div>
           </div>
 
           {/* RECIPE TYPE */}
@@ -108,7 +107,7 @@ const PersonalRecipeItem = (props) => {
           {/* RECIPE NAME */}
           <div className={classes.recipeItem__name}>
             <Link
-              to={{ pathname: "/RecipeMethod", state: { recipeData } }}
+              to={{ pathname: "/PersonalRecipeMethod", state: { recipeData } }}
               className={classes.link}
             >
               <h2 className={typography.primary__headingSmall}>{props.name}</h2>

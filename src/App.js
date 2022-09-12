@@ -8,6 +8,8 @@ import Homepage from "./Pages/HomePage/Homepage";
 import AuthenticationPage from "./Pages/AuthenticationPage/AuthenticationPage";
 import RecipefeedPage from "./Pages/RecipefeedPage/RecipefeedPage";
 import RecipeMethod from "./Components/Recipefeed/RecipeMethod";
+import PersonalRecipeMethod from "./Components/UserProfile/PersonalRecipeMethod";
+import EditPersonalRecipe from "./Components/UserProfile/EditPersonalRecipe";
 import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
 import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage";
 import UserProfile from "./Pages/ProfilePage/UserProfile";
@@ -23,6 +25,16 @@ function App({ dispatch, favRecipe }) {
       <Route exact path="/authenticate" component={AuthenticationPage}></Route>
       <Route exact path="/recipefeed" component={RecipefeedPage}></Route>
       <Route exact path="/recipemethod" component={RecipeMethod}></Route>
+      <Route
+        exact
+        path="/personalrecipemethod"
+        component={PersonalRecipeMethod}
+      ></Route>
+      <Route
+        exact
+        path="/editpersonalrecipe"
+        component={EditPersonalRecipe}
+      ></Route>
       <Route exact path="/createrecipe" component={CreateRecipe}></Route>
       <Route exact path="/favoritespage" component={FavoritesPage}></Route>
       <Route exact path="/userprofile" component={UserProfile}></Route>

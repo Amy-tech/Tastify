@@ -90,7 +90,6 @@ const UserProfile = () => {
       const image = await getDownloadURL(photoRef);
       setProfileImage(image);
     };
-    // FETCHING CURRENT IMAGE STATE
     fetchingImage();
 
     // // TOGGLE USER PROFILE BODY COMPONENT

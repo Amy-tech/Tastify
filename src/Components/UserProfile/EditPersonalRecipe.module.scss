@@ -1,0 +1,44 @@
+.method {
+  background-color: #f5b202;
+  width: 100vw;
+  position: relative;
+
+  &__container {
+    margin-left: 20%;
+  }
+
+  &_editSymbol {
+    color: #333;
+    font-size: 2rem;
+  }
+
+  //   HEADING
+  &__header {
+    height: 65rem;
+  }
+  &__image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: left top;
+    aspect-ratio: 7 / 3;
+  }
+
+  //   CONTENT
+  &__content {
+    margin-top: 2rem;
+    background-color: #fff;
+    border-radius: 5rem 5rem 0 0;
+    padding: 6rem;
+
+    &_sectionHeader {
+      background-color: #f5b202;
+      padding: 1rem 8rem;
+      transform: skewX(-12deg);
+    }
+
+    &_sectionTitle {
+      transform: skew(12deg);
+    }
+  }
+}

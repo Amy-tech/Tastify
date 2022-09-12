@@ -15,6 +15,8 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+    object-position: middle;
+    aspect-ratio: 7 / 3;
   }
 
   //   CONTENT
@@ -55,6 +57,7 @@
     padding-bottom: 1rem;
   }
 
+  // GRID TWO
   &__gridTwo {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
