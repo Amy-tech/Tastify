@@ -1,17 +1,26 @@
+// IMPORTING react
 import React, { useRef, useState } from "react";
-import SubmitModal from "../../CreateRecipe/SubmitModal";
-import ErrorModal from "../../CreateRecipe/ErrorModal";
-import classes from "./RecipeForm.module.scss";
-import typography from "../Global Sass/Typography.module.scss";
-import button from "../Buttons/Button.module.scss";
-import { AiFillDelete } from "react-icons/ai";
-import { BiUpArrow } from "react-icons/bi";
-import { BiDownArrow } from "react-icons/bi";
-import { AiOutlineEnter } from "react-icons/ai";
-import { RiDeleteBin7Fill } from "react-icons/ri";
+
+// IMPORTING firebase
 import { doc, setDoc } from "firebase/firestore";
 import { auth } from "../../../utils/init-firebase";
 import { firestore } from "../../../utils/init-firebase";
+
+// IMPORTING global components
+import typography from "../Global Sass/Typography.module.scss";
+import button from "../Buttons/Button.module.scss";
+
+// IMPORTING relevant components
+import SubmitModal from "../../CreateRecipe/SubmitModal";
+import ErrorModal from "../../CreateRecipe/ErrorModal";
+
+// IMPORTING react icons
+import { AiFillDelete, AiOutlineEnter } from "react-icons/ai";
+import { BiUpArrow, BiDownArrow } from "react-icons/bi";
+import { RiDeleteBin7Fill } from "react-icons/ri";
+
+// IMPORTING scss
+import classes from "./RecipeForm.module.scss";
 
 const RecipeForm = () => {
   const currentUser = auth.currentUser;
@@ -502,6 +511,7 @@ const RecipeForm = () => {
                 <option value="punnet">punnet</option>
                 <option value="slices">slices</option>
                 <option value="clove">clove</option>
+                <option value="loaf">loaf</option>
                 <option value="pinch">pinch</option>
                 <option value="handful">handful</option>
               </select>
@@ -685,14 +695,7 @@ const RecipeForm = () => {
             </ol>
           </div>
         </section>
-        {/* RECIPE PORTION */}
-        <div className={classes.method__content_sectionHeader}>
-          <h3
-            className={`${typography.primary__headingSmall} ${classes.method__content_sectionTitle}`}
-          >
-            >> The portion of the recipe
-          </h3>
-        </div>
+
         {/* USERNAME */}
         <section className={classes.createform__group}>
           <div className={classes.createform__sectionHeader}>
