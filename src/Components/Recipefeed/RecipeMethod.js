@@ -87,13 +87,10 @@ const RecipeMethod = () => {
   // ingredientCalc();
 
   // MAPPING INGREDIENTS
-
   const amounts = recipeData.amount.map((amountData) => <li>{amountData}</li>);
-
   const measurements = recipeData.measurement.map((measurementData) => (
     <li>{measurementData}</li>
   ));
-
   const ingredients = recipeData.ingredient.map((ingredientData) => (
     <li>{ingredientData}</li>
   ));
